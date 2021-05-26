@@ -10,6 +10,7 @@ public class Queue_Class
 		// This is not thread safe
 		//ArrayDeque is faster than LinkedList and Stack
 		//It has no capacity restriction
+		// Queue is a interface ArrayDeque is a implimentation of Queue
 		
 		Deque<Integer> queue=new ArrayDeque<Integer>();
 		queue.add(201);
