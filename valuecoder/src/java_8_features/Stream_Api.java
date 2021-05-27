@@ -24,10 +24,6 @@ public class Stream_Api
 		value.stream().map(i->i*2).forEach(i->System.out.print(i+" "));
 
 		System.out.println();
-		//s.filter(str->Character.isUpperCase(str.charAt(1))).forEach(str->System.out.println(str));
-					// or
-		//s.filter(str -> Character.isUpperCase(str.charAt(1))).forEach(System.out::println);
-					// or
 		s.filter(str->str.endsWith("s")).forEach(str->System.out.println(str));
 	}
 }
