@@ -13,6 +13,8 @@ public class ConcurrentHashMap_Class
 		// Retrieval operations do not entail locking
 		// COncurrentHashMap extends AbstractMap<k,v> and implements ConcurrentMap<k,v> and Serializable interface
 				
+		// initial capacity bydefault is 16 but we can assign as we want in ConcurrentHashMap<>(size)
+		// fill ratio or load factor  is 0.75
 		ConcurrentHashMap<String, Integer> chm=new ConcurrentHashMap<String, Integer>();
 		chm.put("A", 15);
 		chm.put("B", 10);
