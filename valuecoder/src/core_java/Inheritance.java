@@ -27,6 +27,7 @@ class B extends A
 	@Override
 	void fun()
 	{
+		// it will called parent class function first.
 		super.fun();
 		System.out.println("Class B : Fun function");
 	}
@@ -40,3 +41,10 @@ public class Inheritance
 		obj.fun();
 	}
 }
+
+/* 
+Output : Class A Called !!
+		 Class B Called !!
+		 Class A : Fun function
+		 Class B : Fun function
+ */
