@@ -1,36 +1,50 @@
+/* 
+ * wait()
+ * notify()
+ * notifyAll()
+ * All these method is applicable on object level  
+ *  */
+// if we are not using synchronized block then it will error 
+
+// link : https://www.youtube.com/watch?v=2z218xjvw1M  
+// by durgasoft
 package multithreading;
 
-class A1 extends Thread
+class ThreadB extends Thread
 {
-	int t=0;
+	// join() method not used because notify() method do this
+	
+	int total=0;
 	public void run()
 	{
-		// it will refer the current object
-		synchronized (this) 
+		synchronized (this)
 		{
-			for(int i=0;i<=10;i++)
+			System.out.println("Child thread start execution");
+			for(int i=0;i<=100;i++)
 			{
-				t=t+i;
+				total=total+i;
 			}
+			System.out.println("execution end...");
 			this.notify();
 		}
+		
 	}
 }
-
 
 public class Thread_All_Method 
 {
 	public static void main(String[] args) throws InterruptedException 
 	{
-		A1 a=new A1();
-		a.start();
-		synchronized (a)
+		ThreadB b=new ThreadB();
+		b.start(); 
+		synchronized (b)
 		{
-			System.out.println("Main Thread");
-			a.wait();
-			System.out.println("Main Thread got notified");
-			System.out.println(a.t);
-			
+			System.out.println("Main thread calling wait() method");
+			// called
+			b.wait();
+			// whenever this called then child thread is started execution
+			System.out.println("Main thread got notification call");
+			System.out.println("Total is : "+b.total);
 		}
 	}
 }
