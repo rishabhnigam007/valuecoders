@@ -7,7 +7,7 @@
 // if we are not using synchronized block then it will error 
 
 // link : https://www.youtube.com/watch?v=2z218xjvw1M  
-// by durgasoft
+// by durgasoft sir
 package multithreading;
 
 class ThreadB extends Thread
