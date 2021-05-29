@@ -23,7 +23,6 @@ public class FileReader_Class
 				data=fr.read();
 			}
 			System.out.println();
-			
 		}
 		catch (FileNotFoundException e) 
 		{
