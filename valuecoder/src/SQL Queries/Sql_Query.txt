@@ -9,6 +9,7 @@
 		
 		create table user(id int,name varchar(20),city varchar(20));
 		create table school(sid int, sname varchar(20), saddress varchar(30));
+		create table orderdetails (orderdetailid int, orderid int, productid int, quantity int);
 		
 		//for showing all tables
 		show tables;
@@ -20,6 +21,7 @@
 		
 		// for insert multiple row
 		insert into user (id,name,city) values(4,'anuj','fajalganj'),(5,'sachin','bagahi');
+		insert into orderdetails (orderdetailid, orderid, productid, quantity) values (1,10248,11,12),(2,10248,42,10),(3,10248,72,5),(4,10249,14,9),(5,10249,51,40);
 		
 		//enter data on school table
 		insert into school (sid,sname,saddress) values(1,'sardar patel','barra');
@@ -31,6 +33,7 @@
 		// select * from table_name;
 		select * from user;
 		select * from school;
+		select * from orderdetails;
 		
 	
 		<-----     UPDATE OPERATION     ----->
@@ -146,5 +149,20 @@
 
 	// This is just like a function
 	// write once and use many time
+	
+
+
+<--------------------   CASE STATEMENT   -------------------->
+
+	// This is just like a if-else condition
+	select orderid,quantity,
+	case
+		when quantity > 30 then 'the quantity is greater than 30'
+	    when quantity = 30 then 'the quantity is 30'
+	    else 'the quantity is under 30'
+	end as quantitytext
+	from orderdetails;
+	
+
 
 
