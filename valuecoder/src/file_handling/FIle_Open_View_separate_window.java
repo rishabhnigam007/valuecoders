@@ -21,7 +21,7 @@ public class FIle_Open_View_separate_window
 				if(f.exists())
 				{
 					desktop.open(f);
-					System.out.println("File is open in View !!");
+					System.out.println("File open in view!!");
 				}
 				else
 				{
