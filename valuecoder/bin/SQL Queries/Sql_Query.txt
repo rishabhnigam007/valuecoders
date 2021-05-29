@@ -1,0 +1,150 @@
+<--------------------   CRUD OPERATION   -------------------->
+
+		<-----     CREATE OPERATION     ----->
+					
+		create database test;
+		// here test is the database name
+		// for using database
+		use test;
+		
+		create table user(id int,name varchar(20),city varchar(20));
+		create table school(sid int, sname varchar(20), saddress varchar(30));
+		
+		//for showing all tables
+		show tables;
+		
+		//enter the data on the user table
+		insert into user(id,name,city) values (1,'rishu','kanpur');
+		insert into user(id,name,city) values (2,'vikku','gopalpur');
+		insert into user(id,name,city) values (3,'anura','unnao');
+		
+		// for insert multiple row
+		insert into user (id,name,city) values(4,'anuj','fajalganj'),(5,'sachin','bagahi');
+		
+		//enter data on school table
+		insert into school (sid,sname,saddress) values(1,'sardar patel','barra');
+		insert into school (sid,sname,saddress) values(2,'shubhash ismarak','saket nagar');
+		insert into school (sid,sname,saddress) values(3,'mercy','k block');
+	
+		<-----     READ OPERATION     ----->
+		
+		// select * from table_name;
+		select * from user;
+		select * from school;
+		
+	
+		<-----     UPDATE OPERATION     ----->
+		
+		// for update specific user with id
+		update user set name = 'anurag' where id =3 ;
+		
+	
+		<-----     DELETE OPERATION     ----->
+		
+		// for delete specific user using id
+		delete from user where id= 5;
+		
+		// for deleting all record
+		delete from user;
+		
+		// for deleting database
+		drop database test;
+		
+		// delete only delete specific record from the table using where condition
+		// but we use drop command then all data and table structure everything is deleted
+		// but if we use truncate command when only data will be erased structure remain present
+		// truncate free space
+		
+		// major difference is truncate v/s drop is :
+		//  when we use drop it will never rollback
+		//  when we use truncate it will be rollback
+			
+<--------------------   JOINS OPERATION   -------------------->
+		
+		<-----     INNER JOIN OPERATION     ----->
+		
+		//it will return only common data from both table
+		select u.id,u.name,u.city from user u inner join school s on u.id=s.sid;
+
+
+		<-----     LEFT OUTER JOIN OPERATION     ----->
+		
+		//it will return all record of left table which is school and common part from user table
+		select s.sname,s.saddress,u.name from school s left join user u on s.sid=u.id;
+
+		
+		<-----     RIGHT OUTER JOIN OPERATION     ----->
+		
+		//it will return all record of right table which is user and common part from school table if common not find then null will be there
+		select u.name,s.sname,s.saddress from school s right join user u on u.id=s.sid;
+
+		
+		<-----     FULL OUTER JOIN OPERATION     ----->
+		
+		select id,name,city from user full join school on id=school.sid;
+		
+		
+		<-----     CROSS JOIN OPERATION     ----->
+		
+		//it will return all record whether it is not find common data on both table then it will return null
+		select  * from user cross join school;  
+
+		
+		<-----     SELF JOIN OPERATION     ----->
+		
+		// it will search result on self table with comparison
+		select u1.name,u2.name from user u1,user u2 where u1.name=u2.name;
+		
+<--------------------   WILD  CARDs   -------------------->
+
+	There are two wild card in sql mainly : 
+	1. _ (underscore)
+	2. % (percentage)
+	
+	example : select name from user where name like 'a%';
+			 
+			 output : anurag	
+				
+	example : select name from user where name like '_i%';
+		
+			output : rishu
+					 vikku
+					 
+<--------------------   GROUP BY   -------------------->
+
+	example : SELECT NAME, SUM(SALARY) FROM CUSTOMERS GROUP BY NAME;
+	
+<--------------------   ORDER BY   -------------------->	
+
+	// This is used for sorting
+	// There are two types of order : 1. asc (ascending) , 2.desc (descending)
+	// bydefault it is ascending order
+	example : select * from user order by id desc;
+	example : select * from user order by name;
+		
+<--------------------   HAVING CLAUSE   -------------------->
+		
+	// This is used we want to use aggregate function twice
+	//  	or
+	// The HAVING clause was added to SQL because the WHERE keyword cannot be used with aggregate functions
+	example : select count(name) as 'Total name',name,city from user having count(id)>1;
+			
+<--------------------   UNION   -------------------->		
+
+	//The UNION operator selects only distinct values by default. 
+	//To allow duplicate values, use UNION ALL:
+	example : select * from user union select * from school;
+		
+<--------------------   AGGREGATE FUNCTIONS   -------------------->
+		
+	// for perform special function over table
+	list : min(),max(),count(),avg(),sum()
+	
+	// average will not work on string datatypes
+		
+<--------------------   STORED PROCEDURE   -------------------->
+
+	// This is just like a function
+	// write once and use many time
+
+
