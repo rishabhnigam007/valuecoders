@@ -189,7 +189,7 @@
 
 		call fetchall();
 
-	example : WITH INPUT PARAMETER
+	example : WITH INPUT PARAMETER (by default in keyword is there ,write or not !!)
 	
 	1.) delimiter //
 	create procedure user_getid(in userid integer)
@@ -209,8 +209,27 @@
 
 	call getname('rishu');
 	
-	3.)
+	3.)delimiter //
+	create procedure getnameWithId(username varchar(20),userid int)
+	begin
+		select * from user where name=username and id=userid;
+	end //
+	delimiter ;
+
+	call getnameWithId('rishu',1);
 	
+	4.) delimiter //
+	create procedure getEvenOdd(num integer)
+	begin
+		if num%2=0 then 
+		select 'Number is even' AS Result;
+		else
+		select 'Number is odd' AS Result;
+		end if;
+	end //
+	delimiter ;
+
+	call getEvenOdd(4);
 
 
 <--------------------   CASE STATEMENT   -------------------->
