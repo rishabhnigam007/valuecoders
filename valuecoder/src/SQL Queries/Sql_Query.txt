@@ -375,6 +375,26 @@
 	update emp set name='anuraa' where id=2;
 	select * from emp_audit;
 	
+	4.) Before Insert event
+	
+	delimiter //
+	create trigger empBeforeInsert
+	before insert 
+	on emp
+	for each row
+	begin
+		declare emp_age int;
+    	set emp_age=new.age;
+    	if emp_age < 18 then
+    	signal sqlstate '45000' set message_text='You are not eligible';  // this line is for generating error on console window
+	    end if;
+	end //
+	delimiter ;
+
+	insert into emp values(null,'rohit',15);
+	select * from emp_audit;
+	
+	Note : for deleting trigger use : drop trigger trigger_name;
 	
 
 
