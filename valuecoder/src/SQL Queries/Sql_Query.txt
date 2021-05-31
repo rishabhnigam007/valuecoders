@@ -410,6 +410,9 @@
 	Definition : A index helps in fast retrieval of data from tables. All primary key cpolumns are in the primary_index of the table automatically.
 	 
 	// By default index using algorithm is B-Tree  
+	// If table is having Primary key then this column automatically create index for this column
+	// Disadvantage : it uses more storage space
+	// for DML command it require longer time to execute
 	 
 	Syntax : 
 	
@@ -434,3 +437,8 @@
 	alter table emp_new drop index emp_index;
 	
 	
+<--------------------   QUERY OPTIMIZATION   -------------------->
+
+	// This is will done with the help of indexes
+	// and use keyword ANALYZE for tuning and altering response
+	// use Explain keyword to see retrieval timing
