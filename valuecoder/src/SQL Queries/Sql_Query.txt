@@ -157,6 +157,8 @@
 	// This is not for SQL because in sql default delimiter is semi-colon (;) so no need to specify
 	// calling procedure with call procedure_name(parameter);
 	// calling in SQL with exec procedure_name(parameter);
+	// FOR Getting All Procedure : show procedure status where name like '%all';
+	// FOR DELETING PROCEDURE : drop procedure fetchall; // without parenthesis otherwise error
 	
 	SYNTAX : 
 	
@@ -167,7 +169,8 @@
 		END //
 		DELIMITER ;   // if we not set this in the end ; then all procedure created with // by default
 			
-	example : 
+	example : WITH NO PARAMETER
+	
 	1.) delimiter //
 	create procedure getALl()
 	begin
@@ -185,6 +188,29 @@
 		delimiter ;
 
 		call fetchall();
+
+	example : WITH INPUT PARAMETER
+	
+	1.) delimiter //
+	create procedure user_getid(in userid integer)
+	begin
+		select * from user where id=userid;
+	end //
+	delimiter ;
+
+	call user_getid(3);
+	
+	2.)delimiter //
+	create procedure getname(in username varchar(20))
+	begin
+		select * from user where name=username;
+	end //
+	delimiter ;
+
+	call getname('rishu');
+	
+	3.)
+	
 
 
 <--------------------   CASE STATEMENT   -------------------->
