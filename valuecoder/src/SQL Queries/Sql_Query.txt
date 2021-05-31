@@ -307,11 +307,74 @@
 	Syntax : 
 	
 	DELIMITER //
-	CREATE TRIGGER TRIGGER_NAME TRIGGER_TIME TRIGGER_EVENT
+	CREATE TRIGGER TRIGGER_NAME 
+	TRIGGER_TIME	// for specific interval
+	TRIGGER_EVENT	// for specific event like after insert before delete etc
 	ON TABLE_NAME
-	FOR EACH ROW
+	FOR EACH ROW	// for all detected changement on row
 	BEGIN
 	  ...... CODE WRITE HERE ......
 	END //
 	DELIMITER ;
+	
+	example : first need to create table where you record activity for my case it is emp_audit
+	
+	1.)
+	
+	create table emp(id int primary key auto_increment, name varchar(50), age int);
+	select * from emp;
+
+	create table emp_audit(id int primary key auto_increment, audit_description varchar(500));
+
+	delimiter //
+	create trigger empwatch
+	after insert
+	on emp
+	for each row
+	begin 
+		insert into emp_audit values(null,concat('A new row inserted at ', date_format(now(), '%d-%m-%y %h:%i:%s %p') ));
+	end //
+	delimiter ;
+
+	insert into emp values(null,'rishabh',24);
+	select * from emp_audit;
+
+	2.) use declare for declare variable and new for assigning like this operator (this.x=x)
+	
+	delimiter //
+	create trigger empwatch1
+	after insert
+	on emp
+	for each row
+	begin 
+		declare u_id int;
+	    set u_id=new.id;
+		insert into emp_audit values(null,concat('A new row inserted with id ',u_id,' At ', date_format(now(), '%d-%m-%Y %h:%i:%s %p') ));
+	end //
+	delimiter ;
+
+	insert into emp values(null,'anurag',25);
+	select * from emp_audit;
+	
+	3.)	after update event
+	
+	delimiter //
+	create trigger empWatchAfterUpdate
+	after update
+	on emp
+	for each row
+	begin 
+		declare inserted_user_name varchar(20);
+    	declare deleted_user_name varchar(20);
+		set inserted_user_name=new.name;
+	    set deleted_user_name=old.name;
+		insert into emp_audit values(null,concat('A name ',deleted_user_name,' is replaced with ',inserted_user_name,' At ', date_format(now(), '%d-%m-%Y %h:%i:%s %p') ));
+	end //
+	delimiter ;
+
+	update emp set name='anuraa' where id=2;
+	select * from emp_audit;
+	
+	
+
 
