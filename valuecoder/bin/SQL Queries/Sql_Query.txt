@@ -296,6 +296,22 @@
 	end as quantitytext
 	from orderdetails;
 	
+	
+<--------------------   TRIGGERs   -------------------->
 
-
+	Link : https://www.youtube.com/watch?v=PGMfmXt1nN0
+	
+	// A MYQSL trigger is executed or fired whenever an event associated with a table occurs e.g.- insert,update,delete
+	// Trigger is called automatically when a data modification event is made against a table
+	
+	Syntax : 
+	
+	DELIMITER //
+	CREATE TRIGGER TRIGGER_NAME TRIGGER_TIME TRIGGER_EVENT
+	ON TABLE_NAME
+	FOR EACH ROW
+	BEGIN
+	  ...... CODE WRITE HERE ......
+	END //
+	DELIMITER ;
 
