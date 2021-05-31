@@ -230,6 +230,42 @@
 	delimiter ;
 
 	call getEvenOdd(4);
+	
+	example : WITH OUTPUT PARAMETER use @variable for store return value and then use this @variable with select statement for getting result
+	
+	1.) delimiter //
+	create procedure getUserCount(out countid int)
+	begin
+		select count(*) into countid from user;
+	end //
+	delimiter ;
+
+	call getUserCount(@Total_User);
+	select @Total_User;
+	
+	2.) SET keyword use for set the value in variable 
+	
+	delimiter //
+	create procedure getSum(in num1 int, in num2 int, out result int)
+	begin
+		set result = num1+num2;
+	end //
+	delimiter ;
+
+	call getSum(10,20,@sum);
+	select @sum;
+	
+	3.) delimiter //
+	create procedure update_number(num int)
+	begin
+		set num=num+1;
+	    select num;
+	end //
+	delimiter ;
+
+	set @n=20; // seting the value
+	call update_number(@n); // it will return updated value that is 21
+	select @n;  // it will return 20 the set value
 
 
 <--------------------   CASE STATEMENT   -------------------->
