@@ -266,6 +266,23 @@
 	set @n=20; // seting the value
 	call update_number(@n); // it will return updated value that is 21
 	select @n;  // it will return 20 the set value
+	
+	4.)
+	delimiter //
+	create procedure update_num(out n int)
+	begin
+		set n=5;
+	end //
+	delimiter ;
+
+	set @n=20; // update the value of n in procedure
+	call update_num(@n);
+	select @n;
+
+	Note : we can not ALTER the procedure or body of stored procedure using statement
+	to make such changement you need to drop procedure and recreate them
+	
+	//This is one of the drawback of MYSQL
 
 
 <--------------------   CASE STATEMENT   -------------------->
