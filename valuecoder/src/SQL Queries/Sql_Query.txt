@@ -301,8 +301,16 @@
 
 	Link : https://www.youtube.com/watch?v=PGMfmXt1nN0
 	
+	There are 3 types of Triggers mainly :
+	1. DML Triggers (Data manipulation language) insert, update, delete
+	2. DDl Triggers (Data definition language) create, alter
+	3. LOGON Triggers
+	
 	// A MYQSL trigger is executed or fired whenever an event associated with a table occurs e.g.- insert,update,delete
 	// Trigger is called automatically when a data modification event is made against a table
+	// Trigger can catch errors in business logic in the database layer
+	// Trigger provide an alternative way to check the integrity of data
+	// Triggers are very useful to audit the changes in the database in tables. 
 	
 	Syntax : 
 	
@@ -397,4 +405,32 @@
 	Note : for deleting trigger use : drop trigger trigger_name;
 	
 
+<--------------------   INDEXES   -------------------->
 
+	Definition : A index helps in fast retrieval of data from tables. All primary key cpolumns are in the primary_index of the table automatically.
+	 
+	// By default index using algorithm is B-Tree  
+	 
+	Syntax : 
+	
+	CREATE [UNIQUE | FULLTEXT | SPATIAL]INDEX INDEX_NAME 
+	USING [BTREE | HASH | RTREE]  
+	ON TABLE_NAME(COLUMN_NAME [(LENGTH)] [ASC | DESC] ,...);
+	
+	example : 
+
+	create table emp_new(eid int,ename varchar(20));
+	insert into emp_new values(62,'a'); // insert more record then see time of fetching the data
+
+	create index emp_index on emp_new(eid);
+	show index from emp_new;
+
+ 	// explain keyword is use to see timing and no. of total hit when data is Get back
+	explain select * from emp_new where eid=32;
+	select * from emp_new where eid=32;
+
+	show index from emp_new;
+
+	alter table emp_new drop index emp_index;
+	
+	
