@@ -149,7 +149,42 @@
 
 	// This is just like a function
 	// write once and use many time
+	syntax :
+	// Delimiter use to terminate the procedure with symbol like //,$$,';',@@ and so on
+	// which is your choice but in end specify this delimiter with END
+	// Parenthesis after procedure_name and delimiter is mandatory for mysql
+	// and set delimiter in last otherwise it will assign first delimiter for all
+	// This is not for SQL because in sql default delimiter is semi-colon (;) so no need to specify
+	// calling procedure with call procedure_name(parameter);
+	// calling in SQL with exec procedure_name(parameter);
 	
+	SYNTAX : 
+	
+		DELIMITER // 
+		CREATE PROCESURE PROCEDURE_NAME(PARAMETER DATATYPE)
+		BEGIN
+			......... CODE GOES HERE......
+		END //
+		DELIMITER ;   // if we not set this in the end ; then all procedure created with // by default
+			
+	example : 
+	1.) delimiter //
+	create procedure getALl()
+	begin
+		select * from user;
+	end //
+	delimiter ;
+
+	call getAll(); // This is for Calling Procedure
+	
+	2.) delimiter //
+		create procedure fetchall()
+		begin
+			select user.*,school.* from user inner join school on user.id=school.sid;
+		end //
+		delimiter ;
+
+		call fetchall();
 
 
 <--------------------   CASE STATEMENT   -------------------->
