@@ -12,6 +12,7 @@ import org.hibernate.cfg.Configuration;
 
 public class EmployeeService 
 {
+	@SuppressWarnings("unchecked")
 	public static void main(String[] args) 
 	{
 		// set configuration class
@@ -90,7 +91,7 @@ public class EmployeeService
 								employeelist=session.createQuery("FROM Employee").list();
 								if(employeelist != null & employeelist.size() > 0) 
 								{
-									Iterator<Employee> itr=employeelist.iterator();
+									Iterator<Employee> itr=employeelist.iterator();									
 									while(itr.hasNext())
 									{
 										System.out.println(itr.next());
