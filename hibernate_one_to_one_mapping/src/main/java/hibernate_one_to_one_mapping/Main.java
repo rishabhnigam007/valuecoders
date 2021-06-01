@@ -47,13 +47,13 @@ public class Main
 		System.out.println("Enter Passport Number : ");
 		String pno=sc.next();
 		
+		// 2020-08-31 this is in sql databse format
+		
 		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
 		
 		System.out.println("Enter Date with ths format : 2021-06-15 ");
 		System.out.println("Enter Issued Date : ");
-//		String Issuedate = sc.nextLine();
-//	    Date issued=new SimpleDateFormat("YYYY-MM-dd").parse(Issuedate);
-	    
+
 		String Issuedate=sc.next();
 		Date issued=sdf1.parse(Issuedate);
 		sdf1=new SimpleDateFormat("yyyy-MM-dd");
@@ -65,8 +65,6 @@ public class Main
 		
 		System.out.println("Enter Date with ths format : 2021-06-15 ");
 		System.out.println("Enter Expiry Date : ");
-//		String Expirydate = sc.nextLine();
-//	    Date expiry=new SimpleDateFormat("YYYY-MM-dd").parse(Expirydate);
 		
 		String Expirydate=sc.next();
 		Date expiry=sdf2.parse(Expirydate);
