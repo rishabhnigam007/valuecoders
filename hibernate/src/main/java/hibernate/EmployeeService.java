@@ -1,7 +1,10 @@
 package hibernate;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
-
+import javax.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -11,11 +14,11 @@ public class EmployeeService
 {
 	public static void main(String[] args) 
 	{
-		// set configuration
+		// set configuration class
 		Configuration con=new Configuration();
 		con.configure().addAnnotatedClass(Employee.class);
 		
-		// create session factory object
+		// create sessionfactory object
 		SessionFactory sf=con.buildSessionFactory();
 		
 		// create session object for communicating database
@@ -49,20 +52,63 @@ public class EmployeeService
 					{
 						System.out.println("Record inserted successfully !!");
 						t.commit();
-					}					
+					}	
 					break;
 				
 			case 2:
-					System.out.println("Enter id :");
-					int id1=sc.nextInt();
-					e=(Employee)session.get(Employee.class, id1);
-					System.out.println(e);
+					System.out.println("1. Fetch By Id : ");
+					System.out.println("2. Fetch All : ");
+					System.out.println("Enter choice : ");
+					int c=sc.nextInt();
+					switch(c)
+					{
+						case 1:
+								try {
+								System.out.println("Enter id :");
+								int id1=sc.nextInt();
+								
+								Employee ef=null;
+								
+								// load return the proxy object 
+								// also use get() method
+								ef=session.load(Employee.class, id1);
+								
+								System.out.println("======================");
+								System.out.println("ID : "+ef.getId());
+								System.out.println("First Name : "+ef.getFname());
+								System.out.println("Last Name : "+ef.getLname());
+								System.out.println("======================");
+								}
+								catch (Exception e2)
+								{
+									System.err.println("Invalid Id Entered !! ");
+								}
+								break;
+								
+						case 2:
+								List<Employee> employeelist=new ArrayList<Employee>();
+								employeelist=session.createQuery("FROM Employee").list();
+								if(employeelist != null & employeelist.size() > 0) 
+								{
+									Iterator<Employee> itr=employeelist.iterator();
+									while(itr.hasNext())
+									{
+										System.out.println(itr.next());
+									}
+								}						        
+								break;
+								
+						default:
+								System.out.println("Invalid Choice !!");
+								System.exit(0);
+					}
+								
 					break;
 					
 			case 3:
 					System.out.println("Enter id for data updation : ");
 					int id=sc.nextInt();
-					e=(Employee)session.get(Employee.class, id);
+					e=session.get(Employee.class, id);
 					
 					System.out.println("Enter First Name : ");
 					String fname1=sc.next();
@@ -74,7 +120,7 @@ public class EmployeeService
 					e.setLname(lname1);
 					
 					Transaction t1=session.beginTransaction();
-					session.save(e);
+					session.update(e);
 					
 					if(session != null)
 					{
@@ -85,20 +131,58 @@ public class EmployeeService
 					break;
 					
 			case 4:
-					System.out.println("Enter id for deletion : ");
-					int id2=sc.nextInt();
-					e=(Employee)session.get(Employee.class, id2);
-					
-					Transaction t2=session.beginTransaction();
-					session.delete(e);
-					
-					if(session != null)
+					System.out.println("1. Delete By Id : ");
+					System.out.println("2. Delete All : ");
+					System.out.println("Enter choice : ");
+					int ch=sc.nextInt();
+					switch(ch)
 					{
-						System.out.println("Record deleted successfully !!");
-						t2.commit();
-					}
+						case 1:
+							try 
+							{
+								System.out.println("Enter id for deletion : ");
+								int id2=sc.nextInt();
+								e=session.load(Employee.class, id2);
+								
+								Transaction t2=session.beginTransaction();
+								session.delete(e);
+								if(session != null)
+								{
+									System.out.println("Record deleted successfully !!");
+									t2.commit();
+								}
+							}
+							catch (Exception e2)
+							{
+								System.err.println("Invalid Id Entered !! ");
+							}
+							break;
+							
+					case 2:
+							try 
+							{
+								Transaction t2=session.beginTransaction();
+								Query obj=session.createQuery("DELETE FROM Employee");
+								obj.executeUpdate();			
+								if(session != null)
+								{
+									System.out.println("All Record deleted successfully !!");
+									t2.commit();
+								}
+							}
+							catch(Exception e3)
+							{
+								System.err.println("Some Error occur !!"+e3.getMessage());
+							}
+							
+							break;
+							
+					default:
+							System.out.println("Invalid Choice !!");
+							System.exit(0);
+				}
 					
-					break;
+				break;
 
 			default:
 					System.out.println("Invalid choice !!");
@@ -107,5 +191,6 @@ public class EmployeeService
 		
 		sc.close();
 		session.close();
+		sf.close();
 	}
 }
