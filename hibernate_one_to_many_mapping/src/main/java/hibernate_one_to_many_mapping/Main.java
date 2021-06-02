@@ -24,6 +24,7 @@ public class Main
         //Create ApplicantDetail Model data
         ApplicantDetail applicant = new ApplicantDetail();
         
+        
         System.out.println("Enter Applicant First Name : ");
         String fname=sc.next();
         applicant.setFirstName(fname);
