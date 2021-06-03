@@ -99,3 +99,30 @@ public class CriteriaExample
 		
 	}
 }
+
+/*
+
+It’s a Criteria based query language mainly used to fetch the records based on specific search criteria.
+
+It supports complete object oriented approach for querying and retrieving the result from database based on search criteria.
+
+HCQL can not be used to perform DDL operations like Insert,Update and Delete.
+
+It can be used only for retrieving the records based on search conditions.
+
+Criteria queries should be preferred when we have many optional search condtions.
+
+org.hibernate.Criteria interface has provided several methods to add search conditions.
+
+Possible restriction used in HCQL are : 
+
+1.) lt(less than)
+2.) le(less than or equal)
+3.) gt(greater than)
+4.) ge(greater than or equal)
+5.) eq(equal)
+6.) ne(not equal)
+7.) between
+8.) like
+
+*/
