@@ -39,3 +39,33 @@ public class MyFilter implements Filter
     }
     
 }
+
+
+/*
+
+    To run this filter you must specify filter name and filter mapping in web.xml file
+    Web Pages/WEB-INF/web.xml
+    <web-app>
+    
+
+    THIS IS FOR MANAGING FILTER OPERATION IN FILTER.JAVA FILE WHERE YOU GIVE MESSAGE
+    <!--  filter  -->
+    <filter>
+        <filter-name>filter1</filter-name>
+        <filter-class>com.filter.MyFilter</filter-class>
+    </filter>   
+    
+    THIS IS MAPPING IN WHICH YOU APPLY TO FILTER FROM HERE WE APPLY FILTER IN TWO PAGE
+    <!--  filter Mapping  -->
+    <filter-mapping>
+        <filter-name>filter1</filter-name>
+        <url-pattern>/ProfileServlet</url-pattern>   FIRST PAGE
+        <url-pattern>/OrderServlet</url-pattern>    SECOND PAGE
+        IT COULD BE A JSP PAGE LIKE THIS
+        <url-pattern>/index.jsp</url-pattern>
+    </filter-mapping>
+
+    </web-app>
+    
+
+*/
