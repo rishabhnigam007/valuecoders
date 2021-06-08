@@ -8,7 +8,7 @@ public class MainApp
 	@SuppressWarnings("resource")
 	public static void main(String[] args) 
 	{
-		ApplicationContext app=new ClassPathXmlApplicationContext("javacollection.xml");
+		ApplicationContext app=new ClassPathXmlApplicationContext("spring_ioc_collection/javacollection.xml");
 		JavaCollection jc=(JavaCollection) app.getBean("javaCollection");
 		
 		jc.getAddressList();

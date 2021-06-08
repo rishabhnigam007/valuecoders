@@ -14,21 +14,21 @@ public class MainApp
 	{
 		//First way to call the bean	
 		System.out.println("First message from ApplicationContext calling");
-		ApplicationContext app=new ClassPathXmlApplicationContext("helloworld.xml");
+		ApplicationContext app=new ClassPathXmlApplicationContext("spring_ioc_container/helloworld.xml");
 		HelloWorld obj1=(HelloWorld)app.getBean("helloWorld");
 		obj1.getMessage();
 		System.out.println();
 		
 		//Second way to call the bean
 		System.out.println("Second message from XmlBeanFactory calling");
-		XmlBeanFactory factory=new XmlBeanFactory(new ClassPathResource("helloworld.xml"));
+		XmlBeanFactory factory=new XmlBeanFactory(new ClassPathResource("spring_ioc_container/helloworld.xml"));
 		HelloWorld obj2=(HelloWorld)factory.getBean("helloWorld");
 		obj2.getMessage();
 		System.out.println();
 		
 		//Third way to call the bean
 		System.out.println("Third message from AbstractApplicationContext calling");
-		AbstractApplicationContext context=new ClassPathXmlApplicationContext("helloworld.xml");
+		AbstractApplicationContext context=new ClassPathXmlApplicationContext("spring_ioc_container/helloworld.xml");
 		HelloWorld obj3=(HelloWorld) context.getBean("helloWorld");
 		obj3.getMessage();
 		System.out.println();

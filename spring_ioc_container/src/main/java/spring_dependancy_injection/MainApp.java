@@ -8,7 +8,7 @@ public class MainApp
 	@SuppressWarnings("resource")
 	public static void main(String[] args) 
 	{
-		ApplicationContext app=new ClassPathXmlApplicationContext("dependancy_injection.xml");
+		ApplicationContext app=new ClassPathXmlApplicationContext("spring_dependancy_injection/dependancy_injection.xml");
 		
 		TextEditor te=(TextEditor) app.getBean("textEditor");
 		te.spellCheck();
