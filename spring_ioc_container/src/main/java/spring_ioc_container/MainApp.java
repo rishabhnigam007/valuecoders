@@ -41,8 +41,13 @@ public class MainApp
 
 
 /*   
+	
+	There are mainly two types of IoC container
+	1.) BeanFactory
+	2.) ApplicationContext
+	
     IOC container means inversion of control 
-    that mean control spring app through inversion and this inversion happen with
+    that mean control spring app through inversion and this inversion, happen with
     inversion class and xml bean file 
     XmlBeanFactory class and ApplicationContext interface that is the class which is used in the 
     conversion and many more class which do this work

@@ -5,6 +5,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class MainApp
 {
+	@SuppressWarnings("resource")
 	public static void main(String[] args) 
 	{
 		ApplicationContext app=new ClassPathXmlApplicationContext("dependancy_injection.xml");
