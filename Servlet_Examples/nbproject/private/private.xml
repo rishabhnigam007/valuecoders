@@ -3,10 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/mvc/Testing/web/index.html</file>
-            <file>file:/E:/mvc/Testing/src/java/com/servlets/FirstServlet.java</file>
-            <file>file:/E:/mvc/Testing/src/java/com/servlets/SecondServlet.java</file>
-            <file>file:/E:/mvc/Testing/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/Rishabh/git/valuecoders/Servlet_Examples/src/java/com/filter/MyFilter.java</file>
+            <file>file:/C:/Users/Rishabh/git/valuecoders/Servlet_Examples/src/java/com/filter/ProfileServlet.java</file>
         </group>
     </open-files>
 </project-private>

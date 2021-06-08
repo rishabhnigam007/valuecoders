@@ -31,4 +31,5 @@ public class MyTagHandler extends TagSupport
 /*
         first extends tagsupport class and then override its dostrattag method
         second create a TLD (Tag Library Desciptor) file
+example : http://localhost:9494/Testing/tag.jsp
 */
