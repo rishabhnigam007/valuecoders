@@ -29,6 +29,5 @@ public class MainApp
 		te3.spellCheck();
 		System.out.println();
 		
-		
 	}
 }
