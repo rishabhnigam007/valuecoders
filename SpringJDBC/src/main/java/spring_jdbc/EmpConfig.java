@@ -34,6 +34,8 @@ public class EmpConfig
 		return jdbcTemplate;
 	}
 	
+	// This is direct connectivity with assigning values
+	
 //	@Bean
 //	public DataSource dataSource() 
 //	{
@@ -45,17 +47,32 @@ public class EmpConfig
 //		return dataSource;
 //	}
 	
+	// This is using property file setting with the help of environment but in this simple jdbc convention follow 
+	
+//	@Bean
+//	public DataSource dataSource()
+//	{
+//		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//		dataSource.setDriverClassName(env.getRequiredProperty("jdbc.driverClassName"));
+//		dataSource.setUrl(env.getRequiredProperty("jdbc.url"));
+//		dataSource.setUsername(env.getRequiredProperty("jdbc.username"));
+//		dataSource.setPassword(env.getRequiredProperty("jdbc.password"));
+//		return dataSource;
+//	}
+	
 	@Autowired
 	private Environment env;
+	
+	// This is used spring file property for doing this
 	
 	@Bean
 	public DataSource dataSource()
 	{
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName(env.getRequiredProperty("jdbc.driverClassName"));
-		dataSource.setUrl(env.getRequiredProperty("jdbc.url"));
-		dataSource.setUsername(env.getRequiredProperty("jdbc.username"));
-		dataSource.setPassword(env.getRequiredProperty("jdbc.password"));
+		dataSource.setDriverClassName(env.getRequiredProperty("spring.datasource.driver-class-name"));
+		dataSource.setUrl(env.getRequiredProperty("spring.datasource.url"));
+		dataSource.setUsername(env.getRequiredProperty("spring.datasource.username"));
+		dataSource.setPassword(env.getRequiredProperty("spring.datasource.password"));
 		return dataSource;
 	}
 	

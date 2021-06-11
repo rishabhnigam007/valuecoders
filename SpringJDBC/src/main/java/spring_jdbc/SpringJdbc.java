@@ -12,7 +12,7 @@ public class SpringJdbc
 		
 		EmpDao dao=(EmpDao) app.getBean("edao",EmpDao.class);
 		
-		int create=dao.saveEmployee(new Emp(3,"happu",45));
+		int create=dao.saveEmployee(new Emp(1,"happu",45));
 		if(create>0)
 		{
 			System.out.println("Successfully inserted!!");
