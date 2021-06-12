@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/base::Layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Add Book Form</title>
+</head>
+<body>
+	<section>
+		<!-- <h1>Add Contact</h1> -->
+		<div class="container">
+		<div class="card">
+			<div class="card-body">	
+				<h1 class="text-center"><i class="fas fa-book"></i></h1>			
+				<h1 class="text-center">Add Book</h1>
+				<div class="container mt-1">
+					<div class="row">
+						<div class="col-md-8 offset-md-2">
+							<form action=""
+								th:object="${book}"
+								enctype="multipart/form-data"
+								method="post"
+								th:action="@{/user/process-book}"
+								class="mt-2">
+								
+								<!-- Book Title Field -->
+								<div class="input-group">
+									
+									<div class="input-group-prepend">
+									
+										<div class="input-group-text">
+											<!-- This is for icon -->
+											<i class="fa fa-plus"></i>
+										
+										</div>
+									
+									</div>
+									
+									<input required type="text" id="bookTitle" name="bookTitle" placeholder="Enter Book Title here" class="form-control"/>
+									
+								</div>
+								
+								<!-- Book Name Field -->
+								<div class="input-group mt-3">
+									
+									<div class="input-group-prepend">
+									
+										<div class="input-group-text">
+											<!-- This is for icon -->
+											<i class="fas fa-user-alt"></i>
+										
+										</div>
+									
+									</div>
+									
+									<input required type="text" id="bookName" name="bookName" placeholder="Enter Book Name here" class="form-control"/>
+									
+								</div>
+								
+								
+								<!-- Book Discription Field -->
+								<div class="form-group mt-3">
+								
+									<textarea name="description" id="mytextarea" rows="10" class="form-control" placeholder="Enter Book Discription"></textarea>
+									
+								</div>
+								
+								
+								<div class="container text-center">
+									
+									<button class="btn btn-primary mt-3">Save Book</button>
+								
+								</div>
+								
+								
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    
+    <script>
+		
+		/* alert('This is home page')	 */
+				
+		$(document).ready(() => {
+			$('.item').removeClass('active');
+			$('#add-link').addClass('active');
+			/* $('#home-link').addClass('active');
+			$('#contacts-link').addClass('active');
+			$('#profile-link').addClass('active');
+			$('#settings-link').addClass('active'); */
+		});
+		
+		</script>
+		
+	</section>
+</body>
+</html>

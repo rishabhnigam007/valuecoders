@@ -36,7 +36,7 @@ public class SpringJdbc
 		
 		EmpDao dao2=(EmpDao) app.getBean("edao",EmpDao.class);
 		
-		int delete=dao2.deleteEmployee(3);
+		int delete=dao2.deleteEmployee(7);
 		if(delete>0)
 		{
 			System.out.println("Successfully deleted !!");
