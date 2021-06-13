@@ -1,12 +1,14 @@
 package com.librarymanagement.library_management.controller;
 
 import java.security.Principal;
-import java.util.Optional;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,8 +34,8 @@ public class UserController
 	@Autowired
 	private BookRepository bookRepository;
 	
-	@Autowired
-	private BCryptPasswordEncoder bcrypt;
+//	@Autowired
+//	private BCryptPasswordEncoder bcrypt;
 	
 	// method for all common response
 	@ModelAttribute
@@ -92,33 +94,25 @@ public class UserController
 		return "normal/add_book_form";		
 	}
 	
-	@GetMapping("/{bId}/book")
-	public String showBookDetail(@PathVariable("bId") Integer bId, Model model,Principal principal)
+	@GetMapping("/show-books")
+	public String showContacts(Integer id,Model model,Principal principal)
 	{
-		System.out.println("BID "+bId);
-		try
-		{
-			Optional<Book> bookOptional=this.bookRepository.findById(bId);
-			Book book=bookOptional.get();
-			System.out.println(book.toString());
-			
-			String userName=principal.getName();
-			User user=this.userRepository.getUserByUserName(userName);
-			
-			if(user.getId()==book.getUser().getId())
-			{
-				model.addAttribute("book", book);
-			}
-			model.addAttribute("title", "Your Book : "+book.getBookName());
-		}
-		catch(Exception e)
-		{
-			model.addAttribute("title", "Book Not Found");
-			return "normal/book_not_found";
-		}
-		return "normal/book_detail";
+		model.addAttribute("title", "All Books");
+		
+		List<Book> books=this.bookRepository.findAll();
+
+		model.addAttribute("books", books);
+		
+		return "normal/show_books";
 	}
 	
-	
+	@GetMapping("/issue-book")
+	public String issueBookForm(Model model)
+	{
+		model.addAttribute("title", "Issue Book");
+		model.addAttribute("book", new Book());
+		
+		return "normal/issue_book_form";
+	}
 	
 }

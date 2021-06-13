@@ -45,9 +45,9 @@
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav ml-auto text-uppercase">
-				<li class="nav-item active"><a class="nav-link" th:href="@{/user/index}" href="#">Home</a></li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/user/index}" href="#">Home</a></li>
 				
-				<li class="nav-item"><a class="nav-link" th:href="@{/user/profile}" href="#"><span th:text="${user.name}"></span></a></li>
+				<li class="nav-item"><a class="nav-link" href="#"><span th:text="${user.name}"></span></a></li>
 				
 				<li class="nav-item"><a class="nav-link" th:href="@{/logout}" href="#">Logout</a></li>
 			</ul>
@@ -62,9 +62,11 @@
 	<!-- paste icons html here for showing icons -->
 	
 		<a id="home-link" href="#" th:href="@{/user/index}" class="item"><i class="fas fa-home"></i> Home</a>
-		<a id="contacts-link" href="#" th:href="@{/user/show-contacts/0}" class="item"><i class="fas fa-id-card-alt"></i> View Books</a>
+		<a id="books-link" href="#" th:href="@{/user/show-books}" class="item"><i class="fas fa-id-card-alt"></i> View All Books</a>
 		<a id="add-link" href="#" th:href="@{/user/add-book}" class="item"><i class="fas fa-pencil-alt"></i> Add Book</a>
-		<a id="profile-link" href="#" th:href="@{/user/profile}" class="item"><i class="fas fa-user-circle"></i> Your Profile</a>
+		<a id="issue-link" href="#" th:href="@{/user/issue-book}" class="item"><i class="fas fa-book-open"></i> Issue Book</a>
+		<a id="viewissued-link" href="#" th:href="@{/user/view-issued-book}" class="item"><i class="fas fa-book-reader"></i> View Issued Book</a>
+		<a id="return-link" href="#" th:href="@{/user/return-book}" class="item"><i class="fas fa-undo"></i> Return Book</a>
 		<a href="#" th:href="@{/logout}" class="item"><i class="fas fa-sign-out-alt"></i> Logout</a>
 		<div class="divider"></div>
 	</div>
@@ -74,7 +76,7 @@
 	<div class="content mt-5">
 	
 		<i onclick="toggleSidebar()" class="fas fa-bars m-3"></i>
-		<marquee behavior="scroll" direction="left" scrollamount="30"><h1 class="text-center">Library Management System ....It help us to maintain book records !!</h1></marquee>
+		<marquee behavior="scroll" direction="left" scrollamount="20"><h1 class="text-center">Library Management System ....It help us to maintain book records !!</h1></marquee>
 		
 		<!-- message box -->
 		<div th:if="${session.message}" class="container">
@@ -121,7 +123,7 @@
 				  window.location="/user/delete/"+bid;
 				  
 			  } else {
-			    swal("Your contact is safe !!");
+			    swal("Your book is safe !!");
 			  }
 			});
 	}

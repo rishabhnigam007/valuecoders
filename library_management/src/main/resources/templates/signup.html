@@ -21,7 +21,7 @@
   							<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 					</div>
 						<div class="container text-center">
-						<img style="width: 80px" src="" th:src="@{/image/membership.png}"/>
+						<img style="width: 80px" src="" th:src="@{/image/registerlogo.png}"/>
 						</div>
 						<h1 class="text-center">Register Here !!</h1>
 						
@@ -80,21 +80,7 @@
 									<div class="invalid-feedback" th:each="e :${#fields.errors('password')}" th:text="${e}">
       								</div>
 							</div>
-							
-							<!-- <div class="form-group">
-								<textarea 
-									name="about" 
-									th:value="${user.about}" 
-									th:text="${user.about}" 
-									placeholder="Enter something yourself" 
-									rows="7" 
-									class="form-control"
-									th:classappend="${#fields.hasErrors('about')?'is-invalid':''}">
-									</textarea>
-									<div class="invalid-feedback" th:each="e :${#fields.errors('about')}" th:text="${e}">
-      								</div>
-							</div> -->
-							
+																				
 							<div class="form-group form-check text-center">
 							<input type="checkbox"
 							name="agreement"

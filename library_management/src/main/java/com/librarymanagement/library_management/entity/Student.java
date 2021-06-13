@@ -16,7 +16,7 @@ import javax.validation.constraints.Size;
 public class Student 
 {
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int sid;
     
     @NotNull(message = "Student name should not blank")

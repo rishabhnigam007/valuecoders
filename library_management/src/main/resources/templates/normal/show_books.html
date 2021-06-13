@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/base::Layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Show Books</title>
+</head>
+<body>
+	<section>
+	
+		<!-- <div class="card mr-3 ml-3"> -->
+		<div class="container">
+		
+		<!-- <div class="card-body-fluid mr-3 ml-3"> -->
+		<div class="card">
+		
+		<div class="card-body">
+			
+		<h1 class="text-center"><i class="far fa-address-card"></i></h1>			
+				<h1 class="text-center">All Books</h1>
+							
+						<div class="container-fluid table-responsive">
+							<table class="table mt-1 table-striped table-hover">
+								  <thead>
+								    <tr>
+								      <th scope="col">#ID</th>
+								      <th scope="col">Book Title</th>
+								      <th scope="col">Book Name</th>
+								      <th scope="col">Book Description</th>								     
+								    </tr>
+								  </thead>
+								  <tbody>
+								  
+								    <tr th:each="c : ${books}">
+								    
+								      <th scope="row" th:text="${'BOOK  '+c.bId}"></th>
+								      <td ><span th:text="${c.bookTitle}"></span></td>
+								      <td ><span th:text="${c.bookName}"></span></td>
+								      <td th:text="${' '+c.description}"></td>
+								 								      
+								    </tr>	
+								    							
+								  </tbody>
+							</table>
+						</div>							
+					</div>
+			</div>
+		</div>
+		
+		<script>
+		
+		/* alert('This is home page')	 */
+				
+		$(document).ready(() => {
+			$('.item').removeClass('active');
+			$('#books-link').addClass('active');
+		});
+		
+		</script>
+		
+	</section>
+</body>
+</html>
