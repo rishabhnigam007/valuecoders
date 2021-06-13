@@ -65,6 +65,11 @@ public class Student
 	public void setStandard(String standard) {
 		this.standard = standard;
 	}
+
+	@Override
+	public String toString() {
+		return "Student [sid=" + sid + ", sname=" + sname + ", email=" + email + ", standard=" + standard + "]";
+	}
     
     
 }

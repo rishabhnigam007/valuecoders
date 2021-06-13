@@ -31,11 +31,13 @@
 
 </head>
 <body>
+	
+	<section class="librarybanner justify-content-center align-items-center">
 
 	<!-- navbar -->
 
 	<nav class="fixed-top navbar navbar-expand-lg navbar-dark | bg-primary ">
-		<a class="navbar-brand" href="#"> Library Management System</a>
+		<a class="navbar-brand" href="#"><i class="fas fa-warehouse"></i> Library Management System</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarSupportedContent"
 			aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -75,8 +77,8 @@
 	<!-- content area -->
 	<div class="content mt-5">
 	
-		<i onclick="toggleSidebar()" class="fas fa-bars m-3"></i>
-		<marquee behavior="scroll" direction="left" scrollamount="20"><h1 class="text-center">Library Management System ....It help us to maintain book records !!</h1></marquee>
+		<i onclick="toggleSidebar()" class="fas fa-bars m-3" style="color: white;"></i>
+		<marquee behavior="scroll" direction="left" scrollamount="20"><h1 class="text-center" style="color:white;">Library Management System ....It help us to maintain book records !!</h1></marquee>
 		
 		<!-- message box -->
 		<div th:if="${session.message}" class="container">
@@ -101,34 +103,6 @@
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
 		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 		crossorigin="anonymous"></script>
-
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	
-	<!-- this is sweet alert which mean alert box appear whenever we deleted the contact -->
-	
-	<script>
-		
-	function deleteContact(bid)
-	{
-		swal({
-			  title: "Are you sure?",
-			  text: "You want to deleted this book..",
-			  icon: "warning",
-			  buttons: true,
-			  dangerMode: true,
-			})
-			.then((willDelete) => {
-			  if (willDelete) {
-			    
-				  window.location="/user/delete/"+bid;
-				  
-			  } else {
-			    swal("Your book is safe !!");
-			  }
-			});
-	}
-	
-	</script>
 	
 	<script th:src="@{/js/script.js}"></script>
 </body>

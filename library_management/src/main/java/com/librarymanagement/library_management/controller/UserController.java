@@ -2,22 +2,15 @@ package com.librarymanagement.library_management.controller;
 
 import java.security.Principal;
 import java.util.List;
-
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import com.librarymanagement.library_management.dao.BookRepository;
 import com.librarymanagement.library_management.dao.UserRepository;
 import com.librarymanagement.library_management.entity.Book;
@@ -113,6 +106,34 @@ public class UserController
 		model.addAttribute("book", new Book());
 		
 		return "normal/issue_book_form";
+	}
+	
+	@PostMapping("/process-issue-book")
+	public String processIssueBook(@ModelAttribute Book book,Principal principal,HttpSession session,Model model)
+	{
+		try
+		{
+			String name=principal.getName();
+			User user=this.userRepository.getUserByUserName(name);
+			
+			book.setUser(user);
+			user.getBooks().add(book);
+			this.userRepository.save(user);
+			System.out.println("Issue Book "+book);
+			System.out.println("Book Issue");
+			
+			session.setAttribute("message", new Message("Book issued successfully !!", "success"));
+		}
+		catch(Exception e)
+		{
+			System.out.println("Error"+e.getMessage());
+			e.printStackTrace();
+			
+			session.setAttribute("message", new Message("Something went wrong !!", "danger"));
+		}
+		
+		model.addAttribute("title", "Book Issued !!");
+		return "normal/issue_book_form";		
 	}
 	
 }
