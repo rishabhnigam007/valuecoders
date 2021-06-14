@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:fragment="Layout(content)">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+	
+<!-- search : font awesome icons 5 cdn and goto cdnjs.com website and copy link and paste here -->
+<!-- then we are able to use icons -->
+<!-- goto first website www.fontawesome.com and search icons accordingly -->
+<link rel="stylesheet" 
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" 
+	integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" 
+	crossorigin="anonymous" />
+
+<link rel="stylesheet" th:href="@{/css/style.css}" />
+<title th:text="${title}">Base Html</title>
+
+	<!-- jQuery first, then Popper,js , then bootstrap js -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+
+</head>
+<body>
+	
+	<section class="adminbanner justify-content-center align-items-center">
+
+	<!-- navbar -->
+
+	<nav class="fixed-top navbar navbar-expand-lg navbar-dark | bg-primary ">
+		<a class="navbar-brand" href="#"><i class="fas fa-warehouse"></i> Library Management System</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav ml-auto text-uppercase">
+				<li class="nav-item"><a class="nav-link" th:href="@{/user/index}" href="#">Home</a></li>
+				
+				<li class="nav-item"><a class="nav-link" href="#"><span th:text="${'ADMIN :  '+user.name}"></span></a></li>
+				
+				<li class="nav-item"><a class="nav-link" th:href="@{/logout}" href="#">Logout</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<!-- This is sidebar -->
+	<div class="sidebar mt-2">
+	
+		<span onclick="toggleSidebar()" class="crossbtn">&times;</span>
+	
+	<!-- paste icons html here for showing icons -->
+	
+		<a id="home-link" href="#" th:href="@{/admin/index}" class="item"><i class="fas fa-home"></i> Home</a>
+		<a id="librarians-link" href="#" th:href="@{/admin/show-librarian}" class="item"><i class="fas fa-id-card-alt"></i> View Librarian</a>
+		<a id="add-link" href="#" th:href="@{/admin/add-librarian}" class="item"><i class="fas fa-user-plus"></i> Add Librarian</a>
+		<a id="delete-link" href="#" th:href="@{/admin/delete-librarian}" class="item"><i class="fas fa-user-slash"></i> Delete Librarian</a>
+		<a href="#" th:href="@{/logout}" class="item"><i class="fas fa-sign-out-alt"></i> Logout</a>
+		<div class="divider"></div>
+	</div>
+	<!-- end of sidebar -->
+	
+	<!-- content area -->
+	<div class="content mt-5">
+	
+		<i onclick="toggleSidebar()" class="fas fa-bars m-3" style="color: white;"></i>
+		<h1><center><i class="fas fa-user-shield" style="color: white;"></i></center></h1>
+		<h1 class="text-center" style="color:white;">ADMIN : <span th:text="${user.name.toUpperCase()}"></span></h1>
+		
+		<!-- message box -->
+		<div th:if="${session.message}" class="container">
+			<div th:classappend="${'alert-'+session.message.type}" class="alert text-center" role="alert">
+ 				 <span th:text="${session.message.content}"></span>
+			</div>
+			<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+		</div>
+		<div th:replace="${content}"></div>
+	</div>
+	<!-- end of content -->
+	
+	<!-- jQuery first, then Popper,js , then bootstrap js -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+	
+	<script th:src="@{/js/script.js}"></script>
+</body>
+</html>

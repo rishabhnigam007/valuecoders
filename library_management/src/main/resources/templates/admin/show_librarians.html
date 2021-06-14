@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="admin/base::Layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Show Librarians</title>
+</head>
+<body>
+	<section>
+	
+		<!-- <div class="card mr-3 ml-3"> -->
+		<div class="container">
+		
+		<!-- <div class="card-body-fluid mr-3 ml-3"> -->
+		<div class="card">
+		
+		<div class="card-body">
+			
+		<h1 class="text-center"><i class="fas fa-id-card-alt"></i></h1>			
+				<h1 class="text-center">All Librarians</h1>
+							
+						<div class="container-fluid table-responsive">
+							<table class="table mt-1 table-striped table-hover">
+								  <thead>
+								    <tr>
+								      <th scope="col">Librarian ID</th>
+								      <th scope="col">Librarian Name</th>
+								      <th scope="col">Librarian Email</th>
+								      <th scope="col">Role</th>								      							     
+								    </tr>
+								  </thead>
+								  <tbody>
+								  
+								    <tr th:each="c : ${users}">
+								    
+								      <th scope="row" th:text="${'Librarian  '+c.id}"></th>
+								      <td ><span th:text="${c.name}"></span></td>
+								      <td ><span th:text="${c.email}"></span></td>
+								      <td ><span th:text="${c.role}"></span></td>
+								      								 								      
+								    </tr>	
+								    							
+								  </tbody>
+							</table>
+						</div>							
+					</div>
+			</div>
+		</div>
+		
+		<script>
+		
+		/* alert('This is home page')	 */
+				
+		$(document).ready(() => {
+			$('.item').removeClass('active');
+			$('#librarians-link').addClass('active');
+		});
+		
+		</script>
+		
+	</section>
+</body>
+</html>

@@ -88,7 +88,7 @@ public class UserController
 	}
 	
 	@GetMapping("/show-books")
-	public String showContacts(Integer id,Model model,Principal principal)
+	public String showBooks(Integer id,Model model,Principal principal)
 	{
 		model.addAttribute("title", "All Books");
 		
