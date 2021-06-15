@@ -39,7 +39,7 @@
 									aria-describedby="emailHelp" 
 									placeholder="Enter your name here"
 									required
-									th:value="${user.name}"
+								 	th:value="${user.name}"
 									/>
 									
 									<div class="invalid-feedback" th:each="e :${#fields.errors('name')}" th:text="${e}">

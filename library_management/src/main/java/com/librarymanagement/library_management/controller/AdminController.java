@@ -3,6 +3,7 @@ package com.librarymanagement.library_management.controller;
 import java.security.Principal;
 import java.util.List;
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,12 +35,13 @@ public class AdminController
 	public void addCommonData(Model model,Principal principle)
 	{
 		String userName=principle.getName();
-		System.out.println("USERNAME "+userName);
+		System.out.println("ADMIN "+userName);
 		
 		User user=userRepository.getUserByUserName(userName);
-		System.out.println("USER "+user);
+		System.out.println("ADMIN "+user);
 		
-		model.addAttribute("user", user);
+		// This is for new user
+		model.addAttribute("user", new User());
 	}
 	
 	@RequestMapping(value = "/index" ,method = RequestMethod.GET)
@@ -54,6 +57,12 @@ public class AdminController
 		model.addAttribute("title", "All Librarians");
 		
 		List<User> users=this.userRepository.findAll();
+		
+		for(int i=0;i<users.size();i++)
+		{
+			if(users.get(i).getRole().equalsIgnoreCase("ROLE_ADMIN"))
+				users.remove(i);
+		}
 
 		model.addAttribute("users", users);
 		
@@ -64,7 +73,6 @@ public class AdminController
 	public String openAddLibrarianForm(Model model)
 	{
 		model.addAttribute("title", "Add Librarian");
-//		model.addAttribute("user", new User());
 		
 		return "admin/add_librarian_form";
 	}
@@ -79,14 +87,14 @@ public class AdminController
 			if(result1.hasErrors())
 			{
 				System.out.println("Error "+result1.toString());
-				model.addAttribute("user", new User());
+				model.addAttribute("user", user);
 				return "admin/add_librarian_form";
 			}
 			if(!agreement)
 			{
 				System.out.println("you have not agreed the terms and condition !!");
 				throw new Exception("You have not agreed the terms and condition !!");
-			}			
+			}		
 			user.setRole("ROLE_USER");
 			user.setEnabled(true);
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -96,16 +104,46 @@ public class AdminController
 			userRepository.save(user);
 			//new user() for when register and hit submit button then form clean and ready for again register.
 			model.addAttribute("user", new User());
-			session.setAttribute("message", new Message("Successfully Registered !!", "alert-success"));
+			session.setAttribute("message", new Message("Successfully Registered !!", "success"));
 			return "admin/add_librarian_form";
 		} 
 		catch (Exception e) 
 		{
 			e.printStackTrace();
 			model.addAttribute("user",user);
-			session.setAttribute("message", new  Message("Something went wrong !! "+e.getMessage(), "alert-danger"));
+			session.setAttribute("message", new  Message("Something went wrong !!"+e.getMessage(), "danger"));
 			return "admin/add_librarian_form";
 		}	
 	}	
+	
+	@RequestMapping("/delete-librarian")
+	public String deleteLibrarianForm(Model model)
+	{
+		model.addAttribute("title", "Delete Librarian");
+		
+		List<User> users=this.userRepository.findAll();
+		
+		for(int i=0;i<users.size();i++)
+		{
+			if(users.get(i).getRole().equalsIgnoreCase("ROLE_ADMIN"))
+				users.remove(i);
+		}
+
+		model.addAttribute("users", users);
+		
+		return "admin/delete_librarian_form";
+	}
+	
+	@GetMapping("/delete-librarian/{id}")
+	@Transactional
+	public String deleteLibrarian(@PathVariable("id") Integer id,Model model,HttpSession session,Principal principal)
+	{
+		User deleteUser=this.userRepository.findById(id).get();
+		
+		this.userRepository.delete(deleteUser);
+		
+		session.setAttribute("message", new Message("Librarian deleted successfully !!", "success"));
+		return "redirect:/admin/delete-librarian";
+	}
 	
 }
