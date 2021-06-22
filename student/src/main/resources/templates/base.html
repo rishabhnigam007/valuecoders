@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:fragment="Layout(content)">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+<!-- search : font awesome icons 5 cdn and goto cdnjs.com website and copy link and paste here -->
+<!-- then we are able to use icons -->
+<!-- goto first website www.fontawesome.com and search icons accordingly -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+<link rel="stylesheet" th:href="@{/css/style.css}" />
+<title th:text="${title}">Base Html</title>
+</head>
+<body>
+
+	<!-- navbar -->
+
+	<nav class="navbar navbar-expand-lg navbar-dark | bg-primary ">
+		<a class="navbar-brand" href="#"><i class="fas fa-user-graduate"></i>
+			Library Management System</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav ml-auto text-uppercase">
+				<li><a class="btn bg-primary btn btn-light text-white" th:href="@{/}"
+					style="color: black;">Home</a></li>
+				<li><a class="btn bg-primary btn btn-light text-white"
+					th:href="@{/signup}" style="color: black;">Student Registration</a></li>
+				<li><a class="btn bg-primary btn btn-light text-white"
+					style="color: black;">Student List</a></li>
+				<li><a class="btn bg-primary btn btn-light text-white"
+					style="color: black;">Student Update By ID</a></li>
+				<li><a class="btn bg-primary btn btn-light text-white"
+					style="color: black;">Student Delete By ID</a></li>
+				<li><a id="delete" class="btn bg-primary btn btn-light text-white"
+					style="color: black;">Delete All</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div th:replace="${content}"></div>
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+	<script th:src="@{/js/script.js}"></script>
+	<script th:src="@{/js/jquery.min.js}"></script>
+	
+	<script>	
+	
+		$(document).ready(function(){
+			$("#delete").click(function(){
+				
+				$.ajax({
+					type:"DELETE",
+					url:"http://localhost:9090/delete",
+					datatype:"json"
+				});
+				confirm("All Student Deleted Successfully !!");
+			});
+			
+		});
+		
+	</script>
+	
+</body>
+</html>
