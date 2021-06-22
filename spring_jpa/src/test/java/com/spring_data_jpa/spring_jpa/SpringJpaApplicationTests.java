@@ -38,13 +38,14 @@ class SpringJpaApplicationTests
 		assertEquals(emp, service.createEmployee(emp));
 	}
 	
-//	@Test
-//	public void deleteEmployeeTest(int id)
-//	{
-//		Employee emp=repository.getById(id);
-//		service.deleteEmployee(emp.getId());
-//		verify(repository,times(1)).deleteById(emp.getId());
-//	}
+	@Test
+	public void deleteEmployeeTest(int id)
+	{
+		//Employee emp=new Employee(7, "happu", 45, 45000);
+		Employee emp=repository.getById(id);
+		service.deleteEmployee(emp.getId());
+		verify(repository,times(1)).deleteById(emp.getId());
+	}
 
 	@Test
 	public void getEmployeeTest()
