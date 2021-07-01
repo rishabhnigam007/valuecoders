@@ -17,7 +17,7 @@
 					<div class="row">
 						<div class="col-md-8 offset-md-2">
 							<form action=""
-								th:object="${book}"
+								
 								enctype="multipart/form-data"
 								method="post"
 								th:action="@{/user/process-issue-book}"
@@ -36,7 +36,7 @@
 									
 									</div>
 									
-									<input required type="text" id="bId" name="bId" placeholder="Enter Book ID here" class="form-control"/>
+									<input th:value="${Id}" required type="text" id="bId" name="bId" placeholder="Enter Book ID here" class="form-control"/>
 									
 								</div>
 								
@@ -53,7 +53,7 @@
 									
 									</div>
 									
-									<input required type="text" id="sid" name="sid" placeholder="Enter Student ID here" class="form-control"/>
+									<input th:value="${student}" required type="text" id="sid" name="sid" placeholder="Enter Student ID here" class="form-control"/>
 									
 								</div>
 								
@@ -80,10 +80,6 @@
 		$(document).ready(() => {
 			$('.item').removeClass('active');
 			$('#issue-link').addClass('active');
-			/* $('#home-link').addClass('active');
-			$('#contacts-link').addClass('active');
-			$('#profile-link').addClass('active');
-			$('#settings-link').addClass('active'); */
 		});
 		
 		</script>

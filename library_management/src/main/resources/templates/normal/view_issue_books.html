@@ -3,11 +3,12 @@
 	th:replace="normal/base::Layout(~{::section})">
 <head>
 <meta charset="ISO-8859-1">
-<title>Book Details</title>
+<title>Show Books</title>
 </head>
 <body>
 	<section>
-	<!-- <div class="card mr-3 ml-3"> -->
+	
+		<!-- <div class="card mr-3 ml-3"> -->
 		<div class="container">
 		
 		<!-- <div class="card-body-fluid mr-3 ml-3"> -->
@@ -15,8 +16,8 @@
 		
 		<div class="card-body">
 			
-		<h1 class="text-center"><i class="far fa-address-card"></i></h1>			
-				<h1 class="text-center">All Books</h1>
+		<h1 class="text-center"><i class="fas fa-book-reader"></i></h1>			
+				<h1 class="text-center">View issued Books</h1>
 							
 						<div class="container-fluid table-responsive">
 							<table class="table mt-1 table-striped table-hover">
@@ -52,7 +53,7 @@
 				
 		$(document).ready(() => {
 			$('.item').removeClass('active');
-			$('#books-link').addClass('active');
+			$('#viewissued-link').addClass('active');
 		});
 		
 		</script>

@@ -1,10 +1,7 @@
 package com.student_module.student.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import com.student_module.student.helper.Message;
 import com.student_module.student.repository.StudentRepository;
 import com.student_module.student.entity.Student;
@@ -67,11 +65,11 @@ public class StudentController
 	}
 	
 	@RequestMapping(value = "/delete",method = RequestMethod.DELETE)
+	@ResponseBody
 	public String DeleteStudent()
 	{
 		this.studentRepository.deleteAll();
- 		return "true";
+ 		return "All Student Deleted Successfully !!";
 	}
-	
 	
 }

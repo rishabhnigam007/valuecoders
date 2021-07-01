@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.librarymanagement.library_management.dao.BookRepository;
+import com.librarymanagement.library_management.dao.StudentRepository;
 import com.librarymanagement.library_management.dao.UserRepository;
 import com.librarymanagement.library_management.entity.Book;
+import com.librarymanagement.library_management.entity.Student;
 import com.librarymanagement.library_management.entity.User;
 import com.librarymanagement.library_management.helper.Message;
 
@@ -26,6 +28,9 @@ public class UserController
 	
 	@Autowired
 	private BookRepository bookRepository;
+	
+	@Autowired
+	private StudentRepository studentRepository;
 	
 //	@Autowired
 //	private BCryptPasswordEncoder bcrypt;
@@ -105,20 +110,42 @@ public class UserController
 		model.addAttribute("title", "Issue Book");
 		model.addAttribute("book", new Book());
 		
+		model.addAttribute("student",new Student());
+		
 		return "normal/issue_book_form";
 	}
 	
 	@PostMapping("/process-issue-book")
-	public String processIssueBook(@ModelAttribute Book book,Principal principal,HttpSession session,Model model)
+	public String processIssueBook(@ModelAttribute Book book,@ModelAttribute Student student,Principal principal,HttpSession session,Model model)
 	{
 		try
 		{
-			String name=principal.getName();
-			User user=this.userRepository.getUserByUserName(name);
+//			String name=principal.getName();
+//			User user=this.userRepository.getUserByUserName(name);
+//			
+//			book.setUser(user);
+//			user.getBooks().add(book);
+//			this.userRepository.save(user);
 			
-			book.setUser(user);
-			user.getBooks().add(book);
-			this.userRepository.save(user);
+			int bid=Integer.parseInt(principal.getName());
+			
+			Book b=this.bookRepository.getById(bid);
+			
+			int sid=Integer.parseInt(principal.getName());
+			
+			Student s=this.studentRepository.getById(sid);
+			
+//			book.setStudents(s);
+//			student.setBooks(b);
+			
+//			student.getBooks().add(b);
+//			book.getStudents().add(s);
+			
+//			this.studentRepository.save(student);
+//			this.bookRepository.save(book);
+			
+			this.studentRepository.save(student);
+			
 			System.out.println("Issue Book "+book);
 			System.out.println("Book Issue");
 			
@@ -134,6 +161,26 @@ public class UserController
 		
 		model.addAttribute("title", "Book Issued !!");
 		return "normal/issue_book_form";		
+	}
+	
+	@GetMapping("/view-issued-book")
+	public String viewissuedbook(Integer id,Model model,Principal principal)
+	{
+		model.addAttribute("title", "View Issued Books");
+		
+		List<Book> books=this.bookRepository.findAll();
+
+		model.addAttribute("books", books);
+		
+		return "normal/view_issue_books";
+	}
+	
+	@GetMapping("/return-book")
+	public String returnBook(Model model)
+	{
+		model.addAttribute("title", "Return Books");
+		
+		return "normal/return_book";
 	}
 	
 }

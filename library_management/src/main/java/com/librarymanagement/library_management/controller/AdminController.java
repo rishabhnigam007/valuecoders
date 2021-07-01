@@ -77,44 +77,44 @@ public class AdminController
 		return "admin/add_librarian_form";
 	}
 	
-	@RequestMapping(value = "/do_register_librarian",method = RequestMethod.POST)
-	public String registerUser(@Valid @ModelAttribute("user") User user,BindingResult result1,@RequestParam(value = "agreement",defaultValue = "false")boolean agreement,Model model,HttpSession session)
-	{
-		// if Binding result is declare in the last after httpsession then changes not reflected in page so paste it in after user model attribute
-		try 
-		{
-			model.addAttribute("title", "Add Librarian");
-			if(result1.hasErrors())
-			{
-				System.out.println("Error "+result1.toString());
-				model.addAttribute("user", user);
-				return "admin/add_librarian_form";
-			}
-			if(!agreement)
-			{
-				System.out.println("you have not agreed the terms and condition !!");
-				throw new Exception("You have not agreed the terms and condition !!");
-			}		
-			user.setRole("ROLE_USER");
-			user.setEnabled(true);
-			user.setPassword(passwordEncoder.encode(user.getPassword()));
-			
-			System.out.println("Agreement "+agreement);
-			System.out.println("User "+user);
-			userRepository.save(user);
-			//new user() for when register and hit submit button then form clean and ready for again register.
-			model.addAttribute("user", new User());
-			session.setAttribute("message", new Message("Successfully Registered !!", "success"));
-			return "admin/add_librarian_form";
-		} 
-		catch (Exception e) 
-		{
-			e.printStackTrace();
-			model.addAttribute("user",user);
-			session.setAttribute("message", new  Message("Something went wrong !!"+e.getMessage(), "danger"));
-			return "admin/add_librarian_form";
-		}	
-	}	
+//	@RequestMapping(value = "/do_register_librarian",method = RequestMethod.POST)
+//	public String registerUser(@Valid @ModelAttribute("user") User user,BindingResult result1,@RequestParam(value = "agreement",defaultValue = "false")boolean agreement,Model model,HttpSession session)
+//	{
+//		// if Binding result is declare in the last after httpsession then changes not reflected in page so paste it in after user model attribute
+//		try 
+//		{
+//			model.addAttribute("title", "Add Librarian");
+//			if(result1.hasErrors())
+//			{
+//				System.out.println("Error "+result1.toString());
+//				model.addAttribute("user", user);
+//				return "admin/add_librarian_form";
+//			}
+//			if(!agreement)
+//			{
+//				System.out.println("you have not agreed the terms and condition !!");
+//				throw new Exception("You have not agreed the terms and condition !!");
+//			}		
+//			user.setRole("ROLE_USER");
+//			user.setEnabled(true);
+//			user.setPassword(passwordEncoder.encode(user.getPassword()));
+//			
+//			System.out.println("Agreement "+agreement);
+//			System.out.println("User "+user);
+//			userRepository.save(user);
+//			//new user() for when register and hit submit button then form clean and ready for again register.
+//			model.addAttribute("user", new User());
+//			session.setAttribute("message", new Message("Successfully Registered !!", "success"));
+//			return "admin/add_librarian_form";
+//		} 
+//		catch (Exception e) 
+//		{
+//			e.printStackTrace();
+//			model.addAttribute("user",user);
+//			session.setAttribute("message", new  Message("Something went wrong !!"+e.getMessage(), "danger"));
+//			return "admin/add_librarian_form";
+//		}	
+//	}	
 	
 	@RequestMapping("/delete-librarian")
 	public String deleteLibrarianForm(Model model)

@@ -3,13 +3,15 @@
 	th:replace="admin/base::Layout(~{::section})">
 <head>
 <meta charset="ISO-8859-1">
-<title>Librarian Registeration Page</title>
+<title>Librarian Registration Page</title>
 </head>
 <body>
+	<!-- <form action="" th:action="@{/admin/do_register_librarian}" method="post" th:object="${user}"> -->
 	<section class="justify-content-center align-items-center">
+	<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<!-- <section> -->
 		<!-- <h1>This is signup page</h1> -->
-
 		<div class="container">
 
 			<div class="row">
@@ -17,16 +19,13 @@
 
 					<div class="my-card mt-2">
 					
-					<div th:if="${session.message}" th:classappend="${session.message.type}" class="alert" role="alert">
-  							<p class="container text-center" th:text="${session.message.content}"></p>
-  							<th:block th:text="${#session.removeAttribute('message')}"></th:block>
-					</div>
-						<div class="container text-center">
+					<!-- 	<div class="container text-center">
 						<img style="width: 80px" src="" th:src="@{/image/registerlogo.png}"/>
-						</div>
+						</div> -->
 						<h1 class="text-center">Register Here !!</h1>
 						
-						<form action="" th:action="@{/admin/do_register_librarian}" method="post" th:object="${user}">
+						<!-- <form id="register" name="register" th:action="@{/do_register}" action="" method="post" th:object="${user}"> -->
+						<form id="register" name="register" onsubmit = "return validateForm()" method="post">
 						
 							<div class="form-group">
 								<label for="name_field">Your Name</label> 
@@ -34,34 +33,34 @@
 									name="name"
 									type="text" 
 									class="form-control" 
-									th:classappend="${#fields.hasErrors('name')?'is-invalid':''}"
-									id="name_field"
+									
+									id="name"
 									aria-describedby="emailHelp" 
 									placeholder="Enter your name here"
 									required
-								 	th:value="${user.name}"
 									/>
+									<div class="error" id="nameErr"></div>
 									
-									<div class="invalid-feedback" th:each="e :${#fields.errors('name')}" th:text="${e}">
-      								</div>
+									
 							</div>
 							
 							<div class="form-group">
 								<label for="email_field">Your Email</label> 
 								<input
 									name="email"
-									type="text" 
+									type="email" 
 									class="form-control" 
-									th:classappend="${#fields.hasErrors('email')?'is-invalid':''}"
-									id="email_field"
+									
+									id="email"
 									aria-describedby="emailHelp" 
 									placeholder="Enter your email here"
 									required
-									th:value="${user.email}"
+									
 									/>
 									
-									<div class="invalid-feedback" th:each="e :${#fields.errors('email')}" th:text="${e}">
-      								</div>
+									<div class="error" id="emailErr"></div>
+									<!-- <div class="invalid-feedback" th:each="e :${#fields.errors('email')}" th:text="${e}">
+      								</div> -->
 							</div>
 							
 							<div class="form-group">
@@ -70,16 +69,17 @@
 									name="password"
 									type="password" 
 									class="form-control" 
-									th:classappend="${#fields.hasErrors('password')?'is-invalid':''}"
-									id="password_field"
+									
+									id="password"
 									aria-describedby="emailHelp" 
 									placeholder="Enter your password here"
 									required
-									th:value="${user.password}"
+									
 									/>
 									
-									<div class="invalid-feedback" th:each="e :${#fields.errors('password')}" th:text="${e}">
-      								</div>
+									<div class="error" id="passwordErr"></div>
+									<!-- <div class="invalid-feedback" th:each="e :${#fields.errors('password')}" th:text="${e}">
+      								</div> -->
 							</div>
 																				
 							<div class="form-group form-check text-center">
@@ -102,6 +102,121 @@
 			</div>
 		</div>
 		<script>
+		$(document).ready(function(){
+				// SUBMIT FORM
+				// id="register"
+				$("#register").submit(function(event) {
+					// Prevent the form from submitting via the browser.
+					event.preventDefault();
+					ajaxPost();
+				});
+				function ajaxPost() 
+				{
+					// PREPARE FORM DATA
+					var formData = {
+						name: $("#name").val(),
+						email: $("#email").val(),
+						password: $("#password").val()
+					}
+					// DO POST
+					$.ajax({
+						type: "POST",
+						contentType: "application/json",
+						url: "/admin/do_register_librarian",
+						data: JSON.stringify(formData),
+						dataType: "json",
+						success: function(data)
+						 {
+				        	console.log(data);
+						 }
+					});
+				}
+			});	
+	</script>	
+	
+	
+ <script>
+	// Defining a function to display error message
+function printError(elemId, hintMsg) {
+    document.getElementById(elemId).innerHTML = hintMsg;
+}
+
+function submitForm(){
+	document.getElementById("register").submit(); 
+}
+
+// Defining a function to validate form 
+function validateForm() {
+    // Retrieving the values of form elements 
+    var name = document.register.name.value;
+    var email = document.register.email.value;
+    var password = document.register.password.value;
+  
+	// Defining error variables with a default value
+    var nameErr = emailErr  = passwordErr = true;
+    
+    // Validate name
+    if(name == "") {
+        printError("nameErr", "Please enter your name");
+    } else {
+        var regex = /^[a-zA-Z\s]+$/;                
+        if(regex.test(name) === false) {
+            printError("nameErr", "Please enter a valid name");
+        } else {
+            printError("nameErr", "");
+            nameErr = false;
+        }
+    }
+    
+    // Validate email address
+    if(email == "") {
+        printError("emailErr", "Please enter your email address");
+    } else {
+        // Regular expression for basic email validation
+        var regex = /^\S+@\S+\.\S+$/;
+        if(regex.test(email) === false) {
+            printError("emailErr", "Please enter a valid email address");
+        } else{
+            printError("emailErr", "");
+            emailErr = false;
+        }
+    }
+   
+  
+  // validate password
+  
+    if(password == "") {
+        printError("passwordErr", "Please enter your password");
+    } else {
+        var regex = /^[@a-zA-Z1-9\s]+$/;                
+        if(regex.test(password) === false) {
+            printError("passwordErr", "Please enter a valid password");
+        } else {
+            printError("passwordErr", "");
+            passwordErr = false;
+        }
+    }
+  
+  
+    
+    
+    // Prevent the form from being submitted if there are any errors
+    if((nameErr || emailErr || passwordErr ) == true) {
+       return false;
+    } else {
+        // Creating a string from input data for preview
+        var dataPreview = "You've entered the following details: \n" +
+                          "Full Name: " + name + "\n" +
+                          "Email Address: " + email + "\n"   ;                      
+                            
+        // Display input data in a dialog box before submitting the form
+        alert(dataPreview);
+       	submitForm();
+    }
+};
+</script>
+
+	<script>
 		
 		/* alert('This is home page')	 */
 				
@@ -112,5 +227,7 @@
 		
 		</script>
 	</section>
+	
+	
 </body>
 </html>

@@ -9,79 +9,82 @@
 	<section>
 		<!-- <h1>Add Contact</h1> -->
 		<div class="container">
-		<div class="card">
-			<div class="card-body">	
-				<h1 class="text-center"><i class="fas fa-book"></i></h1>			
-				<h1 class="text-center">Add Book</h1>
-				<div class="container mt-1">
-					<div class="row">
-						<div class="col-md-8 offset-md-2">
-							<form action=""
-								th:object="${book}"
-								enctype="multipart/form-data"
-								method="post"
-								th:action="@{/user/process-book}"
-								class="mt-2">
-								
-								<!-- Book Title Field -->
-								<div class="input-group">
-									
-									<div class="input-group-prepend">
-									
-										<div class="input-group-text">
-											<!-- This is for icon -->
-											<i class="fa fa-plus"></i>
-										
+			<div class="card">
+				<div class="card-body">
+					<h1 class="text-center">
+						<i class="fas fa-book"></i>
+					</h1>
+					<h1 class="text-center">Add Book</h1>
+					<div class="container mt-1">
+						<div class="row">
+							<div class="col-md-8 offset-md-2">
+								<form action="" th:object="${book}"
+									enctype="multipart/form-data" method="post"
+									th:action="@{/user/process-book}" class="mt-2 add_book">
+
+									<!-- Book Title Field -->
+									<div class="input-group">
+
+										<div class="input-group-prepend">
+
+											<div class="input-group-text">
+												<!-- This is for icon -->
+												<i class="fa fa-plus"></i>
+
+											</div>
+
 										</div>
-									
+
+										<input required type="text" id="bookTitle" name="bookTitle"
+											placeholder="Enter Book Title here" class="form-control" />
+
 									</div>
-									
-									<input required type="text" id="bookTitle" name="bookTitle" placeholder="Enter Book Title here" class="form-control"/>
-									
-								</div>
-								
-								<!-- Book Name Field -->
-								<div class="input-group mt-3">
-									
-									<div class="input-group-prepend">
-									
-										<div class="input-group-text">
-											<!-- This is for icon -->
-											<i class="fas fa-user-alt"></i>
-										
+
+									<!-- Book Name Field -->
+									<div class="input-group mt-3">
+
+										<div class="input-group-prepend">
+
+											<div class="input-group-text">
+												<!-- This is for icon -->
+												<i class="fas fa-user-alt"></i>
+
+											</div>
+
 										</div>
-									
+
+										<input required type="text" id="bookName" name="bookName"
+											placeholder="Enter Book Name here" class="form-control" />
+
 									</div>
-									
-									<input required type="text" id="bookName" name="bookName" placeholder="Enter Book Name here" class="form-control"/>
-									
-								</div>
-								
-								
-								<!-- Book Discription Field -->
-								<div class="form-group mt-3">
-								
-									<textarea name="description" id="mytextarea" rows="10" class="form-control" placeholder="Enter Book Discription"></textarea>
-									
-								</div>
-								
-								
-								<div class="container text-center">
-									
-									<button class="btn btn-primary mt-3">Save Book</button>
-								
-								</div>
-								
-								
-							</form>
+
+
+									<!-- Book Discription Field -->
+									<div class="form-group mt-3">
+
+										<textarea name="description" id="mytextarea" rows="10"
+											class="form-control" placeholder="Enter Book Discription"></textarea>
+
+									</div>
+
+
+									<div class="container text-center">
+
+										<button id="save_book" class="btn btn-primary mt-3">Save
+											Book</button>
+
+									</div>
+
+
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-    
-    <script>
+
+		<script>
 		
 		/* alert('This is home page')	 */
 				
@@ -90,8 +93,22 @@
 			$('#add-link').addClass('active');
 		});
 		
-		</script>
+		$(document).ready(function(){
+			$("#save_book").click(function(){
+				$.ajax({
+					url:"process-book",
+					type:"POST",
+					contentType:"application/json",
+					datatype:"json",
+					success:function(r){
+						console.log(r);
+					}
+				});
+			});
+		});
 		
+	</script>
+
 	</section>
 </body>
 </html>
