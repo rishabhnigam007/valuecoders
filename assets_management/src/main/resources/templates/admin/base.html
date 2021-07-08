@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:fragment="Layout(content)">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+<link rel="stylesheet" th:href="@{/css/style.css}" />
+<title th:text="${title}"></title>
+</head>
+<body>
+	<section class="adminbanner justify-content-center align-items-center">
+		<!-- navbar -->
+		<nav
+			class="fixed-top navbar navbar-expand-lg navbar-dark | bg-primary ">
+			<a class="navbar-brand" href="#"><i class="fas fa-university"></i>Assets
+				Management</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav ml-auto text-uppercase">
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/admin/index}" href="#">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="#"><span
+							th:text="${'ADMIN'}"></span></a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/logout}"
+						href="#">Logout</a></li>
+				</ul>
+			</div>
+		</nav>
+
+		<!-- This is sidebar -->
+		<div class="sidebar mt-2">
+
+			<span onclick="toggleSidebar()" class="crossbtn">&times;</span>
+
+			<!-- paste icons html here for showing icons -->
+
+			<a id="home-link" href="#" th:href="@{/admin/index}" class="item"><i
+				class="fas fa-home"></i> Home</a> <a id="customers-link" href="#"
+				th:href="@{/admin/show-customer}" class="item"><i
+				class="fas fa-id-card-alt"></i> Show Customer</a> <a id="delete-link"
+				href="#" th:href="@{/admin/delete-customer}" class="item"><i
+				class="fas fa-user-slash"></i> Delete Customer</a>
+				<a id="property-link" href="#" th:href="@{/admin/add-property}"
+				class="item"><i class="fas fa-hospital-user"></i> Add Property</a>
+				<a id="property-link"
+				href="#" th:href="@{/admin/show-property}" class="item"> <i
+				class="fas fa-building"></i> Show Property
+				</a><a
+				id="deleteproperty-link" href="#"
+				th:href="@{/admin/delete-property}" class="item"><i
+				class="fas fa-trash-alt"></i> Delete Property</a> <a href="#"
+				th:href="@{/logout}" class="item"><i class="fas fa-sign-out-alt"></i>
+				Logout</a>
+
+			<div class="divider"></div>
+		</div>
+		<!-- end of sidebar -->
+
+		<!-- content area -->
+		<div class="content mt-5">
+
+			<i onclick="toggleSidebar()" class="fas fa-bars m-3"
+				style="color: white;"></i>
+
+			<h2 class="text-center" style="color: white;">
+				<i class="fas fa-user-shield" style="color: white;"></i> <span>
+					: ADMIN PANEL</span>
+			</h2>
+
+			<!-- message box -->
+			<div th:if="${session.message}" class="container">
+				<div th:classappend="${'alert-'+session.message.type}"
+					class="alert text-center" role="alert">
+					<span th:text="${session.message.content}"></span>
+				</div>
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+			</div>
+			<div th:replace="${content}"></div>
+		</div>
+		<!-- end of content -->
+
+		<!-- jQuery first, then Popper,js , then bootstrap js -->
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+		<script
+			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+		<script
+			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+		<script th:src="@{/js/script.js}"></script>
+
+		<script>
+	
+		function deleteUser(uid)
+		{
+			swal({
+				title: "Are you sure?",
+				text: "you want to delete this customer..",
+				icon: "warning",
+				buttons: true,
+				dangerMode: true,
+				})
+				.then((willDelete) => {
+					if(willDelete)
+					{
+						window.location="/admin/delete-customer/"+uid;
+					}
+					else
+					{
+						swal("Your Customer is safe !!");
+					}
+				});
+		}
+	
+	</script>
+
+		<script th:src="@{/js/script.js}"></script>
+	</section>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::Layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Registration Page</title>
+</head>
+<body>
+	<section
+		class="registerbanner justify-content-center align-items-center">
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<!-- <section> -->
+		<!-- <h1>This is signup page</h1> -->
+		<div class="container" style="opacity: 0.8;">
+			<div class="row">
+				<div class="col-md-8 offset-md-2">
+					<!-- <div th:if="${session.message}" th:classappend="${session.message.type}" class="alert" role="alert">
+						<p class="container text-center" th:text="${session.message.content}"></p>
+						<th:block th:text="${#session.removeAttribute('message')}"></th:block>					
+					</div> -->
+					<div class="my-card mt-2">
+						<h1 class="text-center">Register For Property Here !!</h1>
+						<form id="register" name="register"
+							onsubmit="return validateForm()" method="post" th:object="${user}">
+							<div class="form-group">
+								<label for="name_field">Your Name</label> <input name="name"
+									type="text" class="form-control" id="name"
+									th:classappend="${#fields.hasErrors('name')?'is-invalid':''}"
+									aria-describedby="emailHelp" placeholder="Enter your name here"
+									th:value="${user.name}"
+									th:field="*{name}"
+									required />
+								<!-- <div class="invalid-feedback" th:each="e :${#fields.errors('name')}" th:text="${e}"></div> -->
+								<div class="error" id="nameErr"></div>
+								<div class="alert alert-warning" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>								
+							</div>
+							<div class="form-group">
+								<label for="email_field">Your Email</label> <input name="email"
+									type="email" class="form-control" id="email"
+									th:classappend="${#fields.hasErrors('email')?'is-invalid':''}"
+									aria-describedby="emailHelp"
+									placeholder="Enter your email here"
+									th:value="${user.email}"
+									th:field="*{email}"
+									required />							
+								<!-- <div class="invalid-feedback" th:each="e : ${#fields.errors('email')}" th:text="${e}"></div> -->
+								<div class="error" id="emailErr"></div>
+								<div class="alert alert-warning" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>							
+							</div>
+							<div class="form-group">
+								<label for="password_field">Your Password</label> <input name="password"
+									type="password" class="form-control" id="password"
+									th:classappend="${#fields.hasErrors('password')?'is-invalid':''}" 
+									aria-describedby="emailHelp"
+									placeholder="Enter your password here"
+									th:value="${user.password}"
+									th:field="*{password}"
+									required />
+								<!-- <div class="invalid-feedback" th:each="e :${#fields.errors('password')}" th:text="${e}"></div> -->
+								<div class="error" id="passwordErr"></div>
+								<div class="alert alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>							
+							</div>
+							<div class="form-group form-check text-center">
+								<input type="checkbox" name="agreement" class="form-check-input"
+									id="agreement" /> <label for="agreement">Accept terms
+									and condition</label>
+							</div>
+							<div class="container text-center">
+								<button type="submit"
+									class="btn btn-success text-white btn-block">Submit</button>
+								<button type="reset" class="btn btn-danger btn-block">Reset</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			$(document).ready(function() {
+				// SUBMIT FORM
+				// id="register"
+				$("#register").submit(function(event) {
+					// Prevent the form from submitting via the browser.
+					event.preventDefault();
+					ajaxPost();
+				});
+				function ajaxPost() {
+					// PREPARE FORM DATA
+					var formData = {
+						name : $("#name").val(),
+						email : $("#email").val(),
+						password : $("#password").val()
+					}
+					// DO POST
+					$.ajax({
+						type : "POST",
+						contentType : "application/json",
+						url : "/do_register",
+						data : JSON.stringify(formData),
+						dataType : "json",
+						success : function(data) {
+							console.log(data);
+						}
+					});
+				}
+			});
+		</script>
+		<script>
+			// Defining a function to display error message
+			function printError(elemId, hintMsg) {
+				document.getElementById(elemId).innerHTML = hintMsg;
+			}
+
+			function submitForm() {
+				document.getElementById("register").submit();
+			}
+
+			// Defining a function to validate form 
+			function validateForm() {
+				// Retrieving the values of form elements 
+				var name = document.register.name.value;
+				var email = document.register.email.value;
+				var password = document.register.password.value;
+
+				// Defining error variables with a default value
+				var nameErr = emailErr = passwordErr = true;
+
+				// Validate name
+				if (name == "") {
+					printError("nameErr", "Please Enter Your Name");
+				} else {
+					var regex = /^[a-zA-Z\s]+$/;
+					if (regex.test(name) === false) {
+						printError("nameErr", "Please Enter a Valid Name");
+					} else {
+						printError("nameErr", "");
+						nameErr = false;
+					}
+				}
+
+				// Validate email address
+				if (email == "") {
+					printError("emailErr", "Please Enter Your Email Address");
+				} else {
+					// Regular expression for basic email validation
+					var regex = /^\S+@\S+\.\S+$/;
+					if (regex.test(email) === false) {
+						printError("emailErr",
+								"Please Enter a Valid Email Address");
+					} else {
+						printError("emailErr", "");
+						emailErr = false;
+					}
+				}
+
+				// validate password
+
+				if (password == "") {
+					printError("passwordErr", "Please Enter Your Password");
+				} else {
+					var regex = /^[@a-zA-Z1-9\s]+$/;
+					if (regex.test(password) === false) {
+						printError("passwordErr",
+								"Please Enter a Valid Password");
+					} else {
+						printError("passwordErr", "");
+						passwordErr = false;
+					}
+				}
+
+				// Prevent the form from being submitted if there are any errors
+				if ((nameErr || emailErr || passwordErr) == true) {
+					return false;
+				} else {
+					// Creating a string from input data for preview
+					var dataPreview = "You've entered the following details: \n"
+							+ "Customer Name: "
+							+ name
+							+ "\n"
+							+ "Customer Email Address: "
+							+ email
+							+ "\n"
+							+ "Customer Password: " + password + "\n";
+					// Display input data in a dialog box before submitting the form
+					confirm(dataPreview);
+					submitForm();					
+				}
+			};
+		</script>
+	</section>
+</body>
+</html>

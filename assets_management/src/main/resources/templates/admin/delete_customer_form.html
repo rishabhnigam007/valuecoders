@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="admin/base::Layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Delete Customer Page</title>
+
+</head>
+<body>
+	<section>
+		<div class="container">
+			<div class="card">
+				<div class="card-body my-5">					
+					<h1 class="text-center">
+						<i class="fas fa-id-card-alt"></i>
+					</h1>
+					<h1 class="text-center">Delete Customers</h1>
+
+					<div class="container-fluid table-responsive">
+						<table class="table mt-1 table-striped table-hover">
+							<thead>
+								<tr>
+									<th scope="col">Customer ID</th>
+									<th scope="col">Customer Name</th>
+									<th scope="col">Customer Email</th>
+									<th scope="col">Action</th>									
+								</tr>
+							</thead>
+							<tbody>
+
+								<tr th:each="c : ${users}">
+
+									<th scope="row" th:text="${'Customer  '+c.uid}"></th>
+									<td><span th:text="${c.name}"></span></td>
+									<td><span th:text="${c.email}"></span></td>
+									
+									<td><button th:onclick="|deleteUser(${c.uid})|" class="btn btn-danger btn-sm text-light"><i class="fas fa-trash-alt"></i> Delete</button></td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+		
+		/* alert('This is home page')	 */
+				
+		$(document).ready(() => {
+			$('.item').removeClass('active');
+			$('#delete-link').addClass('active');
+		});
+		
+		</script>
+
+	</section>
+</body>
+</html>
