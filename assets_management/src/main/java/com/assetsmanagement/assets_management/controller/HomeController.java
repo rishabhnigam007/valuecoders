@@ -2,10 +2,10 @@ package com.assetsmanagement.assets_management.controller;
 
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.assetsmanagement.assets_management.entity.User;
 import com.assetsmanagement.assets_management.service.UserService;
@@ -16,10 +16,10 @@ public class HomeController
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(value = "/do_register",method = RequestMethod.POST)
-	public ResponseEntity<Object> registerUser(@Valid @RequestBody User user)
+	@PostMapping("/do_register")
+	public ResponseEntity<User> registerUser(@Valid @RequestBody User user)
 	{
 		User u=this.userService.register(user);
-		return ResponseEntity.ok(u);
+		return new ResponseEntity<User>(u,HttpStatus.OK);
 	}
 }

@@ -15,51 +15,43 @@
 		<div class="container" style="opacity: 0.8;">
 			<div class="row">
 				<div class="col-md-8 offset-md-2">
-					<!-- <div th:if="${session.message}" th:classappend="${session.message.type}" class="alert" role="alert">
-						<p class="container text-center" th:text="${session.message.content}"></p>
-						<th:block th:text="${#session.removeAttribute('message')}"></th:block>					
-					</div> -->
+					
 					<div class="my-card mt-2">
 						<h1 class="text-center">Register For Property Here !!</h1>
-						<form id="register" name="register"
-							onsubmit="return validateForm()" method="post" th:object="${user}">
+						<form name="register" method="post" th:object="${user}">
 							<div class="form-group">
 								<label for="name_field">Your Name</label> <input name="name"
 									type="text" class="form-control" id="name"
 									th:classappend="${#fields.hasErrors('name')?'is-invalid':''}"
 									aria-describedby="emailHelp" placeholder="Enter your name here"
-									th:value="${user.name}"
-									th:field="*{name}"
-									required />
-								<!-- <div class="invalid-feedback" th:each="e :${#fields.errors('name')}" th:text="${e}"></div> -->
+									th:value="${user.name}" th:field="*{name}" required />
 								<div class="error" id="nameErr"></div>
-								<div class="alert alert-warning" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>								
+								<div class="alert alert-warning"
+									th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
 							</div>
 							<div class="form-group">
 								<label for="email_field">Your Email</label> <input name="email"
 									type="email" class="form-control" id="email"
 									th:classappend="${#fields.hasErrors('email')?'is-invalid':''}"
 									aria-describedby="emailHelp"
-									placeholder="Enter your email here"
-									th:value="${user.email}"
-									th:field="*{email}"
-									required />							
-								<!-- <div class="invalid-feedback" th:each="e : ${#fields.errors('email')}" th:text="${e}"></div> -->
+									placeholder="Enter your email here" th:value="${user.email}"
+									th:field="*{email}" required />
 								<div class="error" id="emailErr"></div>
-								<div class="alert alert-warning" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>							
+								<div class="alert alert-warning"
+									th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
 							</div>
 							<div class="form-group">
-								<label for="password_field">Your Password</label> <input name="password"
-									type="password" class="form-control" id="password"
-									th:classappend="${#fields.hasErrors('password')?'is-invalid':''}" 
+								<label for="password_field">Your Password</label> <input
+									name="password" type="password" class="form-control"
+									id="password"
+									th:classappend="${#fields.hasErrors('password')?'is-invalid':''}"
 									aria-describedby="emailHelp"
 									placeholder="Enter your password here"
-									th:value="${user.password}"
-									th:field="*{password}"
-									required />
-								<!-- <div class="invalid-feedback" th:each="e :${#fields.errors('password')}" th:text="${e}"></div> -->
+									th:value="${user.password}" th:field="*{password}" required />
 								<div class="error" id="passwordErr"></div>
-								<div class="alert alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>							
+								<div class="alert alert-warning"
+									th:if="${#fields.hasErrors('password')}"
+									th:errors="*{password}"></div>
 							</div>
 							<div class="form-group form-check text-center">
 								<input type="checkbox" name="agreement" class="form-check-input"
@@ -67,7 +59,7 @@
 									and condition</label>
 							</div>
 							<div class="container text-center">
-								<button type="submit"
+								<button id="register" type="button"
 									class="btn btn-success text-white btn-block">Submit</button>
 								<button type="reset" class="btn btn-danger btn-block">Reset</button>
 							</div>
@@ -80,40 +72,40 @@
 			$(document).ready(function() {
 				// SUBMIT FORM
 				// id="register"
-				$("#register").submit(function(event) {
-					// Prevent the form from submitting via the browser.
-					event.preventDefault();
-					ajaxPost();
-				});
-				function ajaxPost() {
-					// PREPARE FORM DATA
-					var formData = {
-						name : $("#name").val(),
-						email : $("#email").val(),
-						password : $("#password").val()
-					}
-					// DO POST
-					$.ajax({
-						type : "POST",
-						contentType : "application/json",
-						url : "/do_register",
-						data : JSON.stringify(formData),
-						dataType : "json",
-						success : function(data) {
-							console.log(data);
+				$("#register").click(function(event) {
+
+					if (validateForm()) {
+
+						var formData = {
+							name : $("#name").val(),
+							email : $("#email").val(),
+							password : $("#password").val()
 						}
-					});
-				}
+						// DO POST					
+						$.ajax({
+							type : "POST",
+							contentType : "application/json",
+							url : "/do_register",
+							timeout : 86400,
+							data : JSON.stringify(formData),
+							dataType : "json",
+							processData : false,
+							success : function(data) {
+								console.log(JSON.stringify(data));
+							},
+							error : function(jqXhr) {
+								console.log(jqXhr);
+							}
+						});
+					}
+					event.preventDefault();
+				});
 			});
 		</script>
 		<script>
 			// Defining a function to display error message
 			function printError(elemId, hintMsg) {
 				document.getElementById(elemId).innerHTML = hintMsg;
-			}
-
-			function submitForm() {
-				document.getElementById("register").submit();
 			}
 
 			// Defining a function to validate form 
@@ -184,7 +176,7 @@
 							+ "Customer Password: " + password + "\n";
 					// Display input data in a dialog box before submitting the form
 					confirm(dataPreview);
-					submitForm();					
+					return true;
 				}
 			};
 		</script>

@@ -2,6 +2,8 @@ package com.assetsmanagement.assets_management.service;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.assetsmanagement.assets_management.entity.User;
@@ -17,4 +19,6 @@ public interface UserService
 	public Object findById(Integer uid);
 
 	public void delete(User deleteUser);
+
+	public User getCustomer(@Valid User user);
 }

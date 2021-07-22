@@ -7,52 +7,84 @@
 </head>
 <body>
 	<section>
-	
+
 		<!-- <div class="card mr-3 ml-3"> -->
 		<div class="container">
-		
-		<!-- <div class="card-body-fluid mr-3 ml-3"> -->
-		<div class="card">
-		
-		<div class="card-body">
-			
-		<h1 class="text-center"><i class="fas fa-id-card-alt"></i></h1>			
-				<h1 class="text-center">All Customers</h1>
-							
-						<div class="container-fluid table-responsive">
-							<table class="table mt-1 table-striped table-hover">
-								  <thead>
-								    <tr>
-								      <th scope="col">Customer ID</th>
-								      <th scope="col">Customer Name</th>
-								      <th scope="col">Customer Email</th>								      						      							     
-								    </tr>
-								  </thead>
-								  <tbody>
-								  
-								    <tr th:each="c : ${users}">
-								    
-								      <th scope="row" th:text="${'Customer  '+c.uid}"></th>
-								      <td ><span th:text="${c.name}"></span></td>
-								      <td ><span th:text="${c.email}"></span></td>
-								      							      								 								      
-								    </tr>	
-								    							
-								  </tbody>
-							</table>
-						</div>							
+
+			<!-- <div class="card-body-fluid mr-3 ml-3"> -->
+			<div class="card">
+
+				<div class="card-body">
+
+					<h1 class="text-center">
+						<i class="fas fa-id-card-alt"></i>
+					</h1>
+					<h1 class="text-center">All Customers</h1>
+
+					<div class="container-fluid table-responsive">
+						<table class="table mt-1 table-striped table-hover">
+							<thead>
+								<tr>
+									<th scope="col">Customer ID</th>
+									<th scope="col">Customer Name</th>
+									<th scope="col">Customer Email</th>
+								</tr>
+							</thead>
+							<tbody>
+
+								<tr th:each="c : ${users}">
+
+									<th scope="row" th:text="${'Customer  '+c.uid}"></th>
+									<td><span th:text="${c.name}"></span></td>
+									<td><span th:text="${c.email}"></span></td>
+
+								</tr>
+
+							</tbody>
+						</table>
 					</div>
+				</div>
 			</div>
 		</div>
-		
+
+
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+		<script
+			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+		<script
+			src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 		<script>
 		
-		/* alert('This is home page')	 */
-				
-		$(document).ready(() => {
-			$('.item').removeClass('active');
-			$('#customers-link').addClass('active');
-		});
+		$.ajax({
+	        type: "GET",
+	        contentType: "application/json",
+	        url: "/admin/list-customer",
+	        dataType: 'json',
+	        cache: false,
+	        timeout: 600000,
+	        success: function (data) {
+	            /* var json = JSON.stringify(data, null, 4);	          
+				alert(json); */
+	            console.log("SUCCESS : ", data);
+	        },
+	        error: function (e) {
+
+	            var json = "<h4>Ajax Response</h4>&lt;pre&gt;"
+	                + e.responseText + "&lt;/pre&gt;";
+	            $('#feedback').html(json);
+	            console.log("ERROR : ", e);
+	            $("#btn-search").prop("disabled", false);
+	        }
+	    });
 		
 		</script>
 		

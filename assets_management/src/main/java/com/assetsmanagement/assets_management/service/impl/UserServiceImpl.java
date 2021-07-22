@@ -2,6 +2,8 @@ package com.assetsmanagement.assets_management.service.impl;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -51,6 +53,13 @@ public class UserServiceImpl implements UserService
 	public void delete(User deleteUser) 
 	{
 		this.userRepository.delete(deleteUser);
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public User getCustomer(@Valid User user) 
+	{
+		return (User)this.userRepository.getOne(user.getUid());
 	}
 
 }

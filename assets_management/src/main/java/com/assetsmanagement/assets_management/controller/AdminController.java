@@ -1,28 +1,40 @@
 package com.assetsmanagement.assets_management.controller;
 
-import org.springframework.ui.Model;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.assetsmanagement.assets_management.entity.User;
+import com.assetsmanagement.assets_management.service.UserService;
 
 @RestController
 @RequestMapping("/admin")
 public class AdminController
 {
-//	@Autowired
-//	private UserRepository userRepository;
-//	
+	@Autowired
+	private UserService userService;
+	
 //	@Autowired
 //	private BCryptPasswordEncoder passwordEncoder;
 	
 	// method for all common response
 	
-	@RequestMapping("/add-librarian")
-	public String openAddLibrarianForm(Model model)
+	@GetMapping("/list-customer")
+	public ResponseEntity<Object> listCustomer()
 	{
-		model.addAttribute("title", "Add Librarian");
-		
-		return "admin/add_librarian_form";
+		List<User> users=this.userService.listAll();
+		return ResponseEntity.ok(users);
 	}
+	
+//	@RequestMapping("/add-librarian")
+//	public String openAddLibrarianForm(Model model)
+//	{
+//		model.addAttribute("title", "Add Librarian");
+//		
+//		return "admin/add_librarian_form";
+//	}
 	
 //	@RequestMapping("/delete-librarian")
 //	public String deleteLibrarianForm(Model model)
